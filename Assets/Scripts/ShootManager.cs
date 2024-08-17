@@ -32,7 +32,7 @@ public class ShootManager : MonoBehaviour
         //Obtenemos lista de origenes
         origins = GetComponentsInChildren<ProjectileOrigin>();
 
-        Debug.Log($"Hay {origins.Length} orígenes de disparo.");
+        // Debug.Log($"Hay {origins.Length} orï¿½genes de disparo.");
     }
 
     //------------------------------------------------------------------
@@ -68,10 +68,10 @@ public class ShootManager : MonoBehaviour
 
     void LaunchProjectile()
     {
-        /*/ Calcular la dirección hacia el Player
+        /*/ Calcular la direcciï¿½n hacia el Player
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
 
-        // Agregar fuerza al proyectil en la dirección del Player
+        // Agregar fuerza al proyectil en la direcciï¿½n del Player
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         if (rb != null)
         {

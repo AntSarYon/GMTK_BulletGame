@@ -5,31 +5,17 @@ using UnityEngine;
 
 public class GlasesLensController : MonoBehaviour
 {
-    [Header("Materiales de lentes")]
-    [SerializeField] private Material mat_default;
-    [SerializeField] private Material mat_ScaleX1;
-    [SerializeField] private Material mat_ScaleX2;
-    [SerializeField] private Material mat_ScaleX3;
+    public float opacityChangeSpeed = 0.1f; // Velocidad a la que cambia la opacidad
 
-    [Header("Lens change AudioClips")]
-    [SerializeField] private List<AudioClip> lensSoundsList = new List<AudioClip>();
-
-    //Referencias a Componentes
-    private MeshRenderer mMeshRender;
-    private AudioSource mAudioSource;
-    private Animator mAnimator;
-
-    //Ultima escala asignada al Lente
-    private ProjectileScale lastScale;
+    public Renderer lenRenderer;
+    private Color lenColor;
 
     //---------------------------------------------------------------
 
     void Awake()
     {
         //Obtenemos referencia a componentes
-        mMeshRender = GetComponentInChildren<MeshRenderer>();
-        mAudioSource = GetComponent<AudioSource>();
-        mAnimator = GetComponent<Animator>();
+        lenRenderer = GetComponentInChildren<Renderer>();
     }
 
     //---------------------------------------------------------------
@@ -42,37 +28,12 @@ public class GlasesLensController : MonoBehaviour
 
     //---------------------------------------------------------------
 
-    private void LensScaleChangedDelegate(ProjectileScale newScale)
+    private void LensScaleChangedDelegate(float scrollInput)
     {
-        //Reproducimos un sonido de cambio de lente
-        mAudioSource.PlayOneShot(lensSoundsList[UnityEngine.Random.Range(0, lensSoundsList.Count)],1.00f);
+        // Ajusta la opacidad del color del cubo
+        lenColor.a = Mathf.Clamp(lenColor.a + scrollInput * opacityChangeSpeed, 0f, 1f);
 
-        //Actualizmaos la Ultima escala
-        lastScale = newScale;
-
-        //Reproducimos Animación de Cambio de Lente
-        mAnimator.Play("Change");
+        // Aplica el color modificado al material del cubo
+        lenRenderer.material.color = lenColor;
     }
-
-    //---------------------------------------------------------------
-
-    public void ChangeLensScaleMaterial()
-    {
-        //Dependiendo de cual sea la nueva escala, modificamos el Material del lens
-        switch (lastScale)
-        {
-            case ProjectileScale.x1:
-                mMeshRender.material = mat_ScaleX1;
-                break;
-            case ProjectileScale.x2:
-                mMeshRender.material = mat_ScaleX2;
-                break;
-            case ProjectileScale.x3:
-                mMeshRender.material = mat_ScaleX3;
-                break;
-        }
-    }
-
-    //---------------------------------------------------------------
-
 }

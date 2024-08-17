@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class Projectile : MonoBehaviour
 {
     //Escala del Proyectil
-    private ProjectileScale myScale;
+    private int myScale;
 
     [Header("Material de Blur")]
     [SerializeField] private Material blurMaterial;
@@ -40,29 +40,14 @@ public class Projectile : MonoBehaviour
 
         //Obtenemos un indice de Escala aleatorio
         int randomScaleIndex = Random.Range(1, 4);
-
-        //Empleamos un Switch para graduar la escala del Proyectil
-        switch (randomScaleIndex)
-        {
-            case 1:
-                myScale = ProjectileScale.x1;
-                break;
-            case 2:
-                myScale = ProjectileScale.x2;
-                break;
-            case 3:
-                myScale = ProjectileScale.x3;
-                break;
-            default:
-                break;
-        }
+        myScale = randomScaleIndex;
 
         //Actualizamos la Escala del Proyectil en base al valor del Enum
-        transform.localScale = ScalesManager.Instance.GetScaleValue(myScale);
+        transform.localScale = new Vector3(myScale, myScale, myScale);
 
         //Dependiendo de si la escala del ScalesManager es la misma que la del proyectil,
         //activamos o desactivmaos su componente de Renderizado.
-        if (ScalesManager.Instance.currentLensScale != myScale)
+        if (ScalesManager.Instance.scale != myScale)
         {
             //Ponemos el Objeto con Blur
             mSpRender.material = blurMaterial;
@@ -75,7 +60,7 @@ public class Projectile : MonoBehaviour
             mSpRender.material = defaultMaterial;
 
             //Restauro la Escala original del Proyectil
-            transform.localScale = ScalesManager.Instance.GetScaleValue(myScale);
+            transform.localScale = new Vector3(myScale, myScale, myScale);
         }
 
         //Disparamos el Proyectile
@@ -93,11 +78,12 @@ public class Projectile : MonoBehaviour
 
     //---------------------------------------------------------------------------
 
-    private void OnLensScaleChangedDelegate(ProjectileScale newLensScale)
+    private void LensChangedProDelegate(float newLensScale)
     {
         //Dependiendo de si la nueva escala es la misma que la del proyectil,
-        //empleamos su Material normal, o el de BlurShader
-        if (newLensScale != myScale)
+        //activamos o desactivmaos su componente de Renderizado.
+        print(ScalesManager.Instance.scale + "!=" + myScale);
+        if (Mathf.Abs(ScalesManager.Instance.scale - myScale) > 1f)
         {
             //Ponemos el Objeto con Blur
             mSpRender.material = blurMaterial;
@@ -109,7 +95,7 @@ public class Projectile : MonoBehaviour
             mSpRender.material = defaultMaterial;
 
             //Restauro la Escala original del Proyectil
-            transform.localScale = ScalesManager.Instance.GetScaleValue(myScale);
+            transform.localScale = new Vector3(myScale, myScale, myScale);
 
         }
     }
@@ -118,11 +104,11 @@ public class Projectile : MonoBehaviour
 
     private void Launch()
     {
-        // Calcular la dirección hacia el Player
+        // Calcular la direcciï¿½n hacia el Player
         Vector3 playerPosition = FindObjectOfType<SimplePlayerController>().transform.position;
         Vector3 directionToPlayer = (playerPosition - transform.position).normalized;
 
-        // Agregar fuerza al proyectil en la dirección del Player
+        // Agregar fuerza al proyectil en la direcciï¿½n del Player
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null) 
             rb.AddForce(directionToPlayer * 10, ForceMode.VelocityChange);
