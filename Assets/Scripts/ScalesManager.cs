@@ -41,10 +41,10 @@ public class ScalesManager : MonoBehaviour
 
     //-------------------------------------------------
 
-    public void LensScaleChange(ProjectileScale newScale)
+    public void LensScaleChange(ProjectileScale newLensScale)
     {
         //Llamamos a los delegados enviando la nueva escala de Lentes
-        OnLensScaleChanged?.Invoke(newScale);
+        OnLensScaleChanged?.Invoke(newLensScale);
     }
 
     //-------------------------------------------------

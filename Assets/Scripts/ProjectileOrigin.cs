@@ -12,6 +12,12 @@ public class ProjectileOrigin : MonoBehaviour
         Debug.Log($"{gameObject.name} apuntando al player");
     }
 
+    void Update()
+    {
+        //Hacemos que el Origen siempre apunte hacia la cámara
+        transform.LookAt(Camera.main.transform);
+    }
+
     //-------------------------------------------------
 
     public void Shoot()
