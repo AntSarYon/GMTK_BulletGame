@@ -258,7 +258,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88eec212d9af2e74c8f5bbde4c768cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootsDelay: 1
+  origins:
+  - {fileID: 1374578878}
+  projectilePrefab: {fileID: 1581699903575555790, guid: 364e5ee1f5beb2e4793c30bbf7e2c2ce, type: 3}
+  player: {fileID: 1187092387}
+  shootsDelay: 0.5
+  launchForce: 10
 --- !u!4 &506578321
 Transform:
   m_ObjectHideFlags: 0
@@ -670,6 +675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1187092388}
   - component: {fileID: 1187092389}
+  - component: {fileID: 1187092390}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -700,11 +706,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187092387}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c71f07109881634c8e83f5c4e726379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1187092390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187092387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c11d55dc913bef4d9210eea558ee35f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  cameraTransform: {fileID: 963194228}
+  sensitivity: 2
+  minXRotation: -25
+  maxXRotation: 0
+  minYRotation: -25
+  maxYRotation: 25
 --- !u!1 &1256595488
 GameObject:
   m_ObjectHideFlags: 0
