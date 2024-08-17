@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,11 +17,18 @@ public class ScalesManager : MonoBehaviour
     public static ScalesManager Instance;
 
     //Escala actual del juego
-    public ProjectileScale currentLensScale;
+    [HideInInspector] public ProjectileScale currentLensScale;
 
     //Diccionario de Escalas
     private Dictionary<ProjectileScale, Vector3> ScalesDic = new Dictionary<ProjectileScale, Vector3>();
 
+    [Header("Valores de Escalas")]
+    [Range(0.00f, 1.00f)] [SerializeField] private float scaleX1;
+    [Range(0.00f, 1.00f)] [SerializeField] private float scaleX2;
+    [Range(0.00f, 1.00f)] [SerializeField] private float scaleX3;
+
+
+    //Evento de Modificación de Escala de Lentes
     public event UnityAction<ProjectileScale> OnLensScaleChanged;
 
     //-----------------------------------------------
@@ -32,11 +40,11 @@ public class ScalesManager : MonoBehaviour
 
         //Asignamos Instancia
         Instance = this;
-
+        
         //Especificamos los Keys y valores del Diccionario de Escalas
-        ScalesDic.Add(ProjectileScale.x1, new Vector3(0.1f, 0.1f, 0.1f));
-        ScalesDic.Add(ProjectileScale.x2, new Vector3(0.25f, 0.25f, 0.25f));
-        ScalesDic.Add(ProjectileScale.x3, new Vector3(0.4f, 0.4f, 0.4f));
+        ScalesDic.Add(ProjectileScale.x1, new Vector3(scaleX1, scaleX1, scaleX1));
+        ScalesDic.Add(ProjectileScale.x2, new Vector3(scaleX2, scaleX2, scaleX2));
+        ScalesDic.Add(ProjectileScale.x3, new Vector3(scaleX3, scaleX3, scaleX3));
     }
 
     //-------------------------------------------------

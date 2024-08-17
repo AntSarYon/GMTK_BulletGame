@@ -8,9 +8,9 @@ public class ProjectileOrigin : MonoBehaviour
     {
         //Hacemos que el Origen siempre apunte hacia la cámara
         transform.LookAt(Camera.main.transform);
-
-        Debug.Log($"{gameObject.name} apuntando al player");
     }
+
+    //-------------------------------------------------
 
     void Update()
     {
@@ -23,7 +23,7 @@ public class ProjectileOrigin : MonoBehaviour
     public void Shoot()
     {
         //Solicitamos un Proyectil al Pool
-        SoapPool.instance.AskForProjectile(transform.position);
+        ObjectPooling.instance.AskForProjectile(transform.position);
     }
 
 }

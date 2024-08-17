@@ -44,11 +44,11 @@ public class GlasesLensController : MonoBehaviour
 
     private void LensScaleChangedDelegate(ProjectileScale newScale)
     {
-        //Actualizmaos la Ultima escala
-        lastScale = newScale;
-
         //Reproducimos un sonido de cambio de lente
         mAudioSource.PlayOneShot(lensSoundsList[UnityEngine.Random.Range(0, lensSoundsList.Count)],1.00f);
+
+        //Actualizmaos la Ultima escala
+        lastScale = newScale;
 
         //Reproducimos Animación de Cambio de Lente
         mAnimator.Play("Change");
