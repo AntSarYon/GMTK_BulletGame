@@ -28,15 +28,15 @@ public class Projectile : MonoBehaviour
         //Obtenemos la Mesh por defecto
         mMeshFilter = GetComponent<MeshFilter>();
         standardMesh = mMeshFilter.mesh;
+
+        //Asignamos funcion delegada
+        ScalesManager.Instance.OnLensScaleChanged += LensChangedProDelegate;
     }
 
     //---------------------------------------------------------------------------
 
     void OnEnable()
     {
-        //Asignamos funcion delegada
-        ScalesManager.Instance.OnLensScaleChanged += LensChangedProDelegate;
-
         //Obtenemos un indice de Escala aleatorio
         int randomScaleIndex = Random.Range(1, 4);
 
@@ -73,7 +73,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
         //Quitamos funcion delegada
         ScalesManager.Instance.OnLensScaleChanged -= LensChangedProDelegate;
@@ -103,6 +103,6 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         //Movemos el PROYECTI HACIA EL JUGADOR
-        transform.position = Vector3.MoveTowards(transform.position, Camera.main.transform.position, Time.deltaTime * 6.5f); ;
+        transform.position = Vector3.MoveTowards(transform.position, Camera.main.transform.position, Time.deltaTime * 1.5f); ;
     }
 }
