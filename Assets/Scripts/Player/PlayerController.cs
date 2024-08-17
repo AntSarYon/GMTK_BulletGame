@@ -36,6 +36,8 @@ public class SimplePlayerController : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
 
+        Debug.Log($"Input scroll {Input.GetAxis("Mouse ScrollWheel")}");
+
         ChangeGlass();
     }
 

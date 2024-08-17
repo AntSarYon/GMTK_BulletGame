@@ -11,23 +11,24 @@ public class Projectile : MonoBehaviour
     //Escala del Proyectil
     private ProjectileScale myScale;
 
-    [SerializeField] private Mesh highlightMesh;
-    [SerializeField] private Mesh standardMesh;
+    [Header("Material de Blur")]
+    [SerializeField] private Material blurMaterial;
 
-    //Referencia al Mesh Renderer
-    private MeshRenderer mMeshRender; //Recuerda CAMBIAR ESTO cuando uses Sprites en lugar de 3D
-    private MeshFilter mMeshFilter;
+    [Header("Material default")]
+    [SerializeField] private Material defaultMaterial;
+
+    //Referencia al Sprite Renderer
+    private SpriteRenderer mSpRender;
 
     //---------------------------------------------------------------------------
 
     void Awake()
     {
         //Obtenemos referencia
-        mMeshRender = GetComponent<MeshRenderer>();
+        mSpRender = GetComponent<SpriteRenderer>();
 
-        //Obtenemos la Mesh por defecto
-        mMeshFilter = GetComponent<MeshFilter>();
-        standardMesh = mMeshFilter.mesh;
+        //Asignamos el BlurMaterial por defecto
+        mSpRender.material = blurMaterial;
 
         //Asignamos funcion delegada
         ScalesManager.Instance.OnLensScaleChanged += LensChangedProDelegate;
@@ -45,33 +46,40 @@ public class Projectile : MonoBehaviour
         {
             case 1:
                 myScale = ProjectileScale.x1;
-                transform.localScale = ScalesManager.Instance.GetScaleValue(ProjectileScale.x1);
                 break;
             case 2:
                 myScale = ProjectileScale.x2;
-                transform.localScale = ScalesManager.Instance.GetScaleValue(ProjectileScale.x2);
                 break;
             case 3:
                 myScale = ProjectileScale.x3;
-                transform.localScale = ScalesManager.Instance.GetScaleValue(ProjectileScale.x3);
                 break;
             default:
                 break;
         }
 
+        //Actualizamos la Escala del Proyectil en base al valor del Enum
+        transform.localScale = ScalesManager.Instance.GetScaleValue(myScale);
+
         //Dependiendo de si la escala del ScalesManager es la misma que la del proyectil,
         //activamos o desactivmaos su componente de Renderizado.
         if (ScalesManager.Instance.currentLensScale != myScale)
         {
-            //Desactivamos el Render del objeto
-            mMeshFilter.mesh = standardMesh;
+            //Ponemos el Objeto con Blur
+            mSpRender.material = blurMaterial;
+            //Hacemos que el Sprite se vea grande
+            transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         }
         else
         {
-            //Activamos el Render del objeto
-            mMeshFilter.mesh = highlightMesh;
+            //Hacemos que el objeto se vea nitido
+            mSpRender.material = defaultMaterial;
+
+            //Restauro la Escala original del Proyectil
+            transform.localScale = ScalesManager.Instance.GetScaleValue(myScale);
         }
     }
+
+    //---------------------------------------------------------------------------
 
     void OnDestroy()
     {
@@ -87,13 +95,18 @@ public class Projectile : MonoBehaviour
         //activamos o desactivmaos su componente de Renderizado.
         if (newLensScale != myScale)
         {
-            //Desactivamos el Render del objeto
-            mMeshFilter.mesh = standardMesh;
+            //Ponemos el Objeto con Blur
+            mSpRender.material = blurMaterial;
+            transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         }
         else
         {
-            //Activamos el Render del objeto
-            mMeshFilter.mesh = highlightMesh;
+            //Hacemos que el objeto se vea nitido
+            mSpRender.material = defaultMaterial;
+
+            //Restauro la Escala original del Proyectil
+            transform.localScale = ScalesManager.Instance.GetScaleValue(myScale);
+
         }
     }
 
