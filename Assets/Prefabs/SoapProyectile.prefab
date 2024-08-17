@@ -146,3 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790de5815bd24ae499fa3366a6100e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  standardMesh: {fileID: 0}

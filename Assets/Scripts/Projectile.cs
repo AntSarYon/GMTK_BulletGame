@@ -11,8 +11,12 @@ public class Projectile : MonoBehaviour
     //Escala del Proyectil
     private ProjectileScale myScale;
 
+    [SerializeField] private Mesh highlightMesh;
+    [SerializeField] private Mesh standardMesh;
+
     //Referencia al Mesh Renderer
     private MeshRenderer mMeshRender; //Recuerda CAMBIAR ESTO cuando uses Sprites en lugar de 3D
+    private MeshFilter mMeshFilter;
 
     //---------------------------------------------------------------------------
 
@@ -20,6 +24,10 @@ public class Projectile : MonoBehaviour
     {
         //Obtenemos referencia
         mMeshRender = GetComponent<MeshRenderer>();
+
+        //Obtenemos la Mesh por defecto
+        mMeshFilter = GetComponent<MeshFilter>();
+        standardMesh = mMeshFilter.mesh;
     }
 
     //---------------------------------------------------------------------------
@@ -56,12 +64,12 @@ public class Projectile : MonoBehaviour
         if (ScalesManager.Instance.currentLensScale != myScale)
         {
             //Desactivamos el Render del objeto
-            mMeshRender.enabled = false;
+            mMeshFilter.mesh = standardMesh;
         }
         else
         {
             //Activamos el Render del objeto
-            mMeshRender.enabled = true;
+            mMeshFilter.mesh = highlightMesh;
         }
     }
 
@@ -80,12 +88,12 @@ public class Projectile : MonoBehaviour
         if (newLensScale != myScale)
         {
             //Desactivamos el Render del objeto
-            mMeshRender.enabled = false;
+            mMeshFilter.mesh = standardMesh;
         }
         else
         {
             //Activamos el Render del objeto
-            mMeshRender.enabled = true;
+            mMeshFilter.mesh = highlightMesh;
         }
     }
 
