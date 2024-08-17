@@ -39,11 +39,13 @@ public class Projectile : MonoBehaviour
         ScalesManager.Instance.OnLensScaleChanged += LensChangedProDelegate;
 
         //Obtenemos un indice de Escala aleatorio
-        int randomScaleIndex = Random.Range(1, 4);
+        int randomScaleIndex = Random.Range(1, 2);
         myScale = randomScaleIndex;
 
+        float defaultScale = myScale / 2.5f;
+
         //Actualizamos la Escala del Proyectil en base al valor del Enum
-        transform.localScale = new Vector3(myScale, myScale, myScale);
+        transform.localScale = new Vector3(defaultScale, defaultScale, defaultScale);
 
         //Dependiendo de si la escala del ScalesManager es la misma que la del proyectil,
         //activamos o desactivmaos su componente de Renderizado.
@@ -52,7 +54,7 @@ public class Projectile : MonoBehaviour
             //Ponemos el Objeto con Blur
             mSpRender.material = blurMaterial;
             //Hacemos que el Sprite se vea grande
-            transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            transform.localScale = new Vector3(0.85f, 0.85f, 0.85f);
         }
         else
         {
@@ -60,13 +62,25 @@ public class Projectile : MonoBehaviour
             mSpRender.material = defaultMaterial;
 
             //Restauro la Escala original del Proyectil
-            transform.localScale = new Vector3(myScale, myScale, myScale);
+            transform.localScale = new Vector3(defaultScale, defaultScale, defaultScale);
         }
 
         //Disparamos el Proyectile
         Launch();
 
+        //Desactivamos tras 8 segundos
+        Invoke(nameof(TurnOffProjectile), 12f);
+    }
 
+    //---------------------------------------------------------------------------
+
+    private void TurnOffProjectile()
+    {
+        //Reducimos su velocidad a 0
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        //Desactivamos el objeto
+        gameObject.SetActive(false);
     }
 
     //---------------------------------------------------------------------------
@@ -80,14 +94,15 @@ public class Projectile : MonoBehaviour
 
     private void LensChangedProDelegate(float newLensScale)
     {
+        float defaultScale = myScale / 2.5f;
+
         //Dependiendo de si la nueva escala es la misma que la del proyectil,
         //activamos o desactivmaos su componente de Renderizado.
-        print(ScalesManager.Instance.scale + "!=" + myScale);
         if (Mathf.Abs(ScalesManager.Instance.scale - myScale) > 1f)
         {
             //Ponemos el Objeto con Blur
             mSpRender.material = blurMaterial;
-            transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            transform.localScale = new Vector3(0.85f, 0.85f, 0.85f);
         }
         else
         {
@@ -95,7 +110,7 @@ public class Projectile : MonoBehaviour
             mSpRender.material = defaultMaterial;
 
             //Restauro la Escala original del Proyectil
-            transform.localScale = new Vector3(myScale, myScale, myScale);
+            transform.localScale = new Vector3(defaultScale, defaultScale, defaultScale);
 
         }
     }
@@ -111,7 +126,7 @@ public class Projectile : MonoBehaviour
         // Agregar fuerza al proyectil en la direcci�n del Player
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null) 
-            rb.AddForce(directionToPlayer * 10, ForceMode.VelocityChange);
+            rb.AddForce(directionToPlayer * 6, ForceMode.VelocityChange);
         else 
             Debug.LogError("El proyectil no tiene un componente Rigidbody.");
         
