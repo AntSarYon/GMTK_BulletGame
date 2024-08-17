@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public enum ProjectileScale
@@ -15,18 +16,20 @@ public class ScalesManager : MonoBehaviour
     public static ScalesManager Instance;
 
     //Escala actual del juego
-    private ProjectileScale currentLensScale;
-    public ProjectileScale CurrentLensScale { get => currentLensScale; private set => currentLensScale = value; }
+    public ProjectileScale currentLensScale;
 
     //Diccionario de Escalas
     private Dictionary<ProjectileScale, Vector3> ScalesDic = new Dictionary<ProjectileScale, Vector3>();
 
-    
+    public event UnityAction<ProjectileScale> OnLensScaleChanged;
 
     //-----------------------------------------------
 
     void Awake()
     {
+        //Inicizalizamos la escala de Lentes en x1
+        currentLensScale = ProjectileScale.x1;
+
         //Asignamos Instancia
         Instance = this;
 
@@ -34,6 +37,14 @@ public class ScalesManager : MonoBehaviour
         ScalesDic.Add(ProjectileScale.x1, new Vector3(0.15f, 0.15f, 0.15f));
         ScalesDic.Add(ProjectileScale.x2, new Vector3(0.45f, 0.45f, 0.45f));
         ScalesDic.Add(ProjectileScale.x3, new Vector3(0.8f, 0.8f, 0.8f));
+    }
+
+    //-------------------------------------------------
+
+    public void LensScaleChange(ProjectileScale newScale)
+    {
+        //Llamamos a los delegados enviando la nueva escala de Lentes
+        OnLensScaleChanged?.Invoke(newScale);
     }
 
     //-------------------------------------------------
