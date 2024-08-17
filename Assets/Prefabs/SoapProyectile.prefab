@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4408580818862603419}
   - component: {fileID: 4045891433433457907}
   - component: {fileID: 6314040498441209645}
+  - component: {fileID: 6990873371427526649}
   m_Layer: 0
   m_Name: SoapProyectile
   m_TagString: Untagged
@@ -129,7 +130,19 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6990873371427526649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581699903575555790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790de5815bd24ae499fa3366a6100e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
