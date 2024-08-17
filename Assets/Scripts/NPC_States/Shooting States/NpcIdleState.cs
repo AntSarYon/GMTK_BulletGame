@@ -1,15 +1,16 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class NpcShootingState : NpcShootState
+public class NpcIdleState : NpcWalkState
 {
     public override void EnterState(NpcStateManager npcStateManager)
     {
-        npcStateManager.shootManager.enabled = true;
+        
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)
     {
-       
+        
     }
 }

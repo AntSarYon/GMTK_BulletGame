@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class NpcWalkingState : NpcBaseState
+public class NpcWalkingState : NpcWalkState
 {
     private float targetX;
 
@@ -12,7 +12,6 @@ public class NpcWalkingState : NpcBaseState
 
     public override void UpdateState(NpcStateManager npcStateManager)
     {
-        Debug.Log("pain");
         // Mueve el objeto hacia la posición objetivo en X
         Vector3 currentPosition = npcStateManager.transform.position;
         currentPosition.x = Mathf.MoveTowards(currentPosition.x, targetX, npcStateManager.speed * Time.deltaTime);

@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0)
         {
             NpcStateManager t = GetComponent<NpcStateManager>();
-            t.SwitchState(t.defeatState);
+            t.SwitchWalkState(t.idleWalk);
         }
     }
 

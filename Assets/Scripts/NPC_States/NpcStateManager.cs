@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class NpcStateManager: MonoBehaviour
 {
-    public NpcBaseState currentState;
-    public NpcBaseState idleState = new NpcIdleState();
-    public NpcWalkingState walkingState = new NpcWalkingState();
-    public NpcShootingState shootState = new NpcShootingState();
+    public NpcWalkState currentWalkingState;
+    public NpcWalkState idleWalk = new NpcIdleState();
+    public NpcWalkState walkingState = new NpcWalkingState();
+
+    public NpcShootState currentShootingState;
+    public NpcShootState idleShoot = new NpcIdleShot();
+    public NpcShootState simpleShoot = new NpcShootingState();
+
     public NpcDefeatState defeatState = new NpcDefeatState();
 
     public float speed;
@@ -16,31 +20,42 @@ public class NpcStateManager: MonoBehaviour
 
     private void Start()
     {
-        currentState = walkingState;
+        currentWalkingState = walkingState;
+        currentShootingState = idleShoot;
 
-        currentState.EnterState(this);
+        currentWalkingState.EnterState(this);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SwitchState(idleState);
+            SwitchWalkState(idleWalk);
+            SwitchShootState(idleShoot);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SwitchState(walkingState);
+            SwitchWalkState(walkingState);
+            SwitchShootState(idleShoot);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SwitchState(shootState);
+            SwitchWalkState(walkingState);
+            SwitchShootState(simpleShoot);
         }
-        currentState.UpdateState(this);
+        currentWalkingState.UpdateState(this);
+        currentShootingState.UpdateState(this);
     }
 
-    public void SwitchState(NpcBaseState state)
+    public void SwitchWalkState(NpcWalkState state)
     {
-        currentState = state;
+        currentWalkingState = state;
+        state.EnterState(this);
+    }
+
+    public void SwitchShootState(NpcShootState state)
+    {
+        currentShootingState = state;
         state.EnterState(this);
     }
 }
