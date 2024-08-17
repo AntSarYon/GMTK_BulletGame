@@ -33,7 +33,7 @@ public class ShootManager : MonoBehaviour
         //Obtenemos lista de origenes
         origins = GetComponentsInChildren<ProjectileOrigin>();
 
-        Debug.Log($"Hay {origins.Length} orígenes de disparo.");
+        // Debug.Log($"Hay {origins.Length} orígenes de disparo.");
     }
 
     //------------------------------------------------------------------
@@ -67,7 +67,6 @@ public class ShootManager : MonoBehaviour
 
     void LaunchProjectile()
     {
-        print("LaunchProjectile");
         // Crear una instancia del proyectil
         GameObject projectile = Instantiate(projectilePrefab, origins[0].transform.position, Quaternion.identity);
 

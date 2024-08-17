@@ -36,26 +36,12 @@ public class SimplePlayerController : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
 
-        Debug.Log($"Input scroll {Input.GetAxis("Mouse ScrollWheel")}");
-
-        ChangeGlass();
-    }
-
-    private void ChangeGlass()
-    {
-        switch (true)
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollInput != 0f)
         {
-            case bool _ when Input.GetKeyDown(KeyCode.Z):
-                ScalesManager.Instance.LensScaleChange(ProjectileScale.x1);
-                break;
-
-            case bool _ when Input.GetKeyDown(KeyCode.X):
-                ScalesManager.Instance.LensScaleChange(ProjectileScale.x2);
-                break;
-
-            case bool _ when Input.GetKeyDown(KeyCode.C):
-                ScalesManager.Instance.LensScaleChange(ProjectileScale.x3);
-                break;
+            ScalesManager.Instance.LensScaleChanged(scrollInput);
         }
+
+        Debug.Log($"Input scroll {Input.GetAxis("Mouse ScrollWheel")}");
     }
 }
