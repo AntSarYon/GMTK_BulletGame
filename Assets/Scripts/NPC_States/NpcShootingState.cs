@@ -10,20 +10,11 @@ public class NpcShootingState : NpcBaseState
 
     public override void EnterState(NpcStateManager npcStateManager)
     {
-        
+        npcStateManager.shootManager.enabled = true;
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)
     {
        
-    }
-
-    private void Shoot(NpcStateManager npcStateManager)
-    {
-        GameObject bullet = UnityEngine.Object.Instantiate(npcStateManager.projectile, transform.position, Quaternion.identity);
-        Vector2 direction = (target.position - transform.position).normalized;
-        bullet.GetComponent<Rigidbody2D>().velocity = direction * npcStateManager.shootingSpeed;
-        //bullet.GetComponent<Projectile>().damage = npcStateManager.damage;
-        //bullet.GetComponent<Projectile>().teamNumber = npcStateManager.teamNumber;
     }
 }
