@@ -36,7 +36,7 @@ public class Projectile : MonoBehaviour
     void OnEnable()
     {
         //Asignamos funcion delegada
-        ScalesManager.Instance.OnLensScaleChanged += OnLensScaleChangedDelegate;
+        ScalesManager.Instance.OnLensScaleChanged += LensChangedProDelegate;
 
         //Obtenemos un indice de Escala aleatorio
         int randomScaleIndex = Random.Range(1, 4);
@@ -73,7 +73,7 @@ public class Projectile : MonoBehaviour
     void OnDisable()
     {
         //Quitamos funcion delegada
-        ScalesManager.Instance.OnLensScaleChanged -= OnLensScaleChangedDelegate;
+        ScalesManager.Instance.OnLensScaleChanged -= LensChangedProDelegate;
     }
 
     //---------------------------------------------------------------------------
