@@ -11,14 +11,25 @@ public class GlasesLensController : MonoBehaviour
     [SerializeField] private Material mat_ScaleX2;
     [SerializeField] private Material mat_ScaleX3;
 
+    [Header("Lens change AudioClips")]
+    [SerializeField] private List<AudioClip> lensSoundsList = new List<AudioClip>();
+
+    //Referencias a Componentes
     private MeshRenderer mMeshRender;
+    private AudioSource mAudioSource;
+    private Animator mAnimator;
+
+    //Ultima escala asignada al Lente
+    private ProjectileScale lastScale;
 
     //---------------------------------------------------------------
 
     void Awake()
     {
-        //Obtenemos referencia al MeshRender
-        mMeshRender = GetComponent<MeshRenderer>();
+        //Obtenemos referencia a componentes
+        mMeshRender = GetComponentInChildren<MeshRenderer>();
+        mAudioSource = GetComponent<AudioSource>();
+        mAnimator = GetComponent<Animator>();
     }
 
     //---------------------------------------------------------------
@@ -33,8 +44,22 @@ public class GlasesLensController : MonoBehaviour
 
     private void LensScaleChangedDelegate(ProjectileScale newScale)
     {
+        //Actualizmaos la Ultima escala
+        lastScale = newScale;
+
+        //Reproducimos un sonido de cambio de lente
+        mAudioSource.PlayOneShot(lensSoundsList[UnityEngine.Random.Range(0, lensSoundsList.Count)],1.00f);
+
+        //Reproducimos Animación de Cambio de Lente
+        mAnimator.Play("Change");
+    }
+
+    //---------------------------------------------------------------
+
+    public void ChangeLensScaleMaterial()
+    {
         //Dependiendo de cual sea la nueva escala, modificamos el Material del lens
-        switch (newScale)
+        switch (lastScale)
         {
             case ProjectileScale.x1:
                 mMeshRender.material = mat_ScaleX1;
