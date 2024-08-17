@@ -29,15 +29,15 @@ public class Projectile : MonoBehaviour
 
         //Asignamos el BlurMaterial por defecto
         mSpRender.material = blurMaterial;
-
-        //Asignamos funcion delegada
-        ScalesManager.Instance.OnLensScaleChanged += LensChangedProDelegate;
     }
 
     //---------------------------------------------------------------------------
 
     void OnEnable()
     {
+        //Asignamos funcion delegada
+        ScalesManager.Instance.OnLensScaleChanged += OnLensScaleChangedDelegate;
+
         //Obtenemos un indice de Escala aleatorio
         int randomScaleIndex = Random.Range(1, 4);
 
@@ -77,22 +77,26 @@ public class Projectile : MonoBehaviour
             //Restauro la Escala original del Proyectil
             transform.localScale = ScalesManager.Instance.GetScaleValue(myScale);
         }
+
+        //Disparamos el Proyectile
+        Launch();
+
+
     }
 
     //---------------------------------------------------------------------------
-
-    void OnDestroy()
+    void OnDisable()
     {
         //Quitamos funcion delegada
-        ScalesManager.Instance.OnLensScaleChanged -= LensChangedProDelegate;
+        ScalesManager.Instance.OnLensScaleChanged -= OnLensScaleChangedDelegate;
     }
 
     //---------------------------------------------------------------------------
 
-    private void LensChangedProDelegate(ProjectileScale newLensScale)
+    private void OnLensScaleChangedDelegate(ProjectileScale newLensScale)
     {
         //Dependiendo de si la nueva escala es la misma que la del proyectil,
-        //activamos o desactivmaos su componente de Renderizado.
+        //empleamos su Material normal, o el de BlurShader
         if (newLensScale != myScale)
         {
             //Ponemos el Objeto con Blur
@@ -112,10 +116,27 @@ public class Projectile : MonoBehaviour
 
     //---------------------------------------------------------------------------
 
+    private void Launch()
+    {
+        // Calcular la dirección hacia el Player
+        Vector3 playerPosition = FindObjectOfType<SimplePlayerController>().transform.position;
+        Vector3 directionToPlayer = (playerPosition - transform.position).normalized;
+
+        // Agregar fuerza al proyectil en la dirección del Player
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null) 
+            rb.AddForce(directionToPlayer * 10, ForceMode.VelocityChange);
+        else 
+            Debug.LogError("El proyectil no tiene un componente Rigidbody.");
+        
+    }
+
+    //---------------------------------------------------------------------------
+
 
     void Update()
     {
         //Movemos el PROYECTI HACIA EL JUGADOR
-        transform.position = Vector3.MoveTowards(transform.position, Camera.main.transform.position, Time.deltaTime * 1.5f); ;
+        //transform.position = Vector3.MoveTowards(transform.position, Camera.main.transform.position, Time.deltaTime * 1.5f); ;
     }
 }

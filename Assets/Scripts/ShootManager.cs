@@ -8,7 +8,6 @@ public class ShootManager : MonoBehaviour
     //Lista de Origenes de disparo
     public ProjectileOrigin[] origins;
 
-    public GameObject projectilePrefab;
     public GameObject player;
 
     [Header("Tiempo entre disparos")]
@@ -47,7 +46,7 @@ public class ShootManager : MonoBehaviour
         if (shootTimer >= shootsDelay)
         {
             //Disparamos de un Origen random
-            LaunchProjectile();
+            ShootFromRandomOrigin();
 
             //Retornamos el Timer a 0
             shootTimer = 0;
@@ -65,14 +64,12 @@ public class ShootManager : MonoBehaviour
         origins[index].Shoot();
     }
 
+    //--------------------------------------------------------------
+
     void LaunchProjectile()
     {
-        print("LaunchProjectile");
-        // Crear una instancia del proyectil
-        GameObject projectile = Instantiate(projectilePrefab, origins[0].transform.position, Quaternion.identity);
-
-        // Calcular la dirección hacia el Player
-        Vector3 directionToPlayer = (player.transform.position - origins[0].transform.position).normalized;
+        /*/ Calcular la dirección hacia el Player
+        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
 
         // Agregar fuerza al proyectil en la dirección del Player
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
@@ -84,5 +81,6 @@ public class ShootManager : MonoBehaviour
         {
             Debug.LogError("El proyectil no tiene un componente Rigidbody.");
         }
+        */
     }
 }
