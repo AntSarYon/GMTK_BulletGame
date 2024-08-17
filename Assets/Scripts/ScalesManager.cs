@@ -35,8 +35,8 @@ public class ScalesManager : MonoBehaviour
 
         //Especificamos los Keys y valores del Diccionario de Escalas
         ScalesDic.Add(ProjectileScale.x1, new Vector3(0.1f, 0.1f, 0.1f));
-        ScalesDic.Add(ProjectileScale.x2, new Vector3(0.3f, 0.3f, 0.3f));
-        ScalesDic.Add(ProjectileScale.x3, new Vector3(0.6f, 0.6f, 0.6f));
+        ScalesDic.Add(ProjectileScale.x2, new Vector3(0.25f, 0.25f, 0.25f));
+        ScalesDic.Add(ProjectileScale.x3, new Vector3(0.4f, 0.4f, 0.4f));
     }
 
     //-------------------------------------------------
