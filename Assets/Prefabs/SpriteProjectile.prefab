@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1007286671506503293}
   - component: {fileID: 3901700874693644841}
   - component: {fileID: 2782804052672879034}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpriteProjectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,6 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790de5815bd24ae499fa3366a6100e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrSprites:
+  - {fileID: 21300000, guid: 8ec8653d656e4c444a23e36b4661597d, type: 3}
+  - {fileID: 21300000, guid: 81d40c2a8fcf14f4da9df43c80d95cc9, type: 3}
+  - {fileID: 21300000, guid: 2753fbe79c1c2d94cbd1b5b3ef913e57, type: 3}
+  - {fileID: 21300000, guid: 24e9760668084784cba76e5d80f9c2ac, type: 3}
+  - {fileID: 21300000, guid: 3f6374a34dbbb2f40b2c0812182745bc, type: 3}
   blurMaterial: {fileID: 2100000, guid: 8a39c60e2beed784f9c4b91c808198d8, type: 2}
   defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!135 &3901700874693644841

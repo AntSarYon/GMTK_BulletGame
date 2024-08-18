@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 
@@ -10,6 +11,9 @@ public class Projectile : MonoBehaviour
 {
     //Escala del Proyectil
     private int myScale;
+
+    [Header("Sprites de Proyectiles")]
+    [SerializeField] private Sprite[] arrSprites = new Sprite[5];
 
     [Header("Material de Blur")]
     [SerializeField] private Material blurMaterial;
@@ -37,6 +41,9 @@ public class Projectile : MonoBehaviour
     {
         //Asignamos funcion delegada
         ScalesManager.Instance.OnLensScaleChanged += LensChangedProDelegate;
+
+        //Asignamos un Sprite aleatorio
+        mSpRender.sprite = arrSprites[UnityEngine.Random.Range(0, arrSprites.Length)];
 
         //Obtenemos un indice de Escala aleatorio
         int randomScaleIndex = Random.Range(1, 2);
@@ -67,9 +74,6 @@ public class Projectile : MonoBehaviour
 
         //Disparamos el Proyectile
         Launch();
-
-        //Desactivamos tras 8 segundos
-        Invoke(nameof(TurnOffProjectile), 12f);
     }
 
     //---------------------------------------------------------------------------
