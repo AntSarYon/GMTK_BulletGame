@@ -11,7 +11,7 @@ public class ShootManager : MonoBehaviour
     public GameObject player;
 
     [Header("Tiempo entre disparos")]
-    [Range(0.00f, 5.00f)] [SerializeField] private float shootsDelay;
+    [Range(0.00f, 5.00f)] [SerializeField] public float shootsDelay;
     public float launchForce = 10f;
 
     //Timer de disparo

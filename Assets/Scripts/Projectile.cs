@@ -45,7 +45,7 @@ public class Projectile : MonoBehaviour
         float defaultScale = myScale / 2.5f;
 
         //Actualizamos la Escala del Proyectil en base al valor del Enum
-        transform.localScale = new Vector3(defaultScale, defaultScale, defaultScale);
+        transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
         //Dependiendo de si la escala del ScalesManager es la misma que la del proyectil,
         //activamos o desactivmaos su componente de Renderizado.
@@ -54,7 +54,7 @@ public class Projectile : MonoBehaviour
             //Ponemos el Objeto con Blur
             mSpRender.material = blurMaterial;
             //Hacemos que el Sprite se vea grande
-            transform.localScale = new Vector3(0.85f, 0.85f, 0.85f);
+            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
         else
         {
@@ -62,7 +62,7 @@ public class Projectile : MonoBehaviour
             mSpRender.material = defaultMaterial;
 
             //Restauro la Escala original del Proyectil
-            transform.localScale = new Vector3(defaultScale, defaultScale, defaultScale);
+            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
 
         //Disparamos el Proyectile
@@ -102,7 +102,7 @@ public class Projectile : MonoBehaviour
         {
             //Ponemos el Objeto con Blur
             mSpRender.material = blurMaterial;
-            transform.localScale = new Vector3(0.85f, 0.85f, 0.85f);
+            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
         else
         {
@@ -110,7 +110,7 @@ public class Projectile : MonoBehaviour
             mSpRender.material = defaultMaterial;
 
             //Restauro la Escala original del Proyectil
-            transform.localScale = new Vector3(defaultScale, defaultScale, defaultScale);
+            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
         }
     }

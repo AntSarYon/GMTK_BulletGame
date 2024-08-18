@@ -8,14 +8,14 @@ public class SimplePlayerController : MonoBehaviour
     [Header("Transform de Camara")]
     public Transform cameraTransform;
 
-    [Header("Sensibilidad de ´camara")]
+    [Header("Sensibilidad de ï¿½camara")]
     public float sensitivity = 2f;
 
-    [Header("Ajustes de Rotación - X")]
+    [Header("Ajustes de Rotaciï¿½n - X")]
     public float minXRotation = -50f;
     public float maxXRotation = 50f;
 
-    [Header("Ajustes de Rotación - Y")]
+    [Header("Ajustes de Rotaciï¿½n - Y")]
     //public float minYRotation = -10f;
     //public float maxYRotation = 10f;
 
@@ -37,17 +37,17 @@ public class SimplePlayerController : MonoBehaviour
         //Traslado en el Eje X
         transform.Translate(CompleteSpeed * moveSpeed * Time.deltaTime);
 
-        // Rotación de la cámara según el movimiento del mouse
+        // Rotaciï¿½n de la cï¿½mara segï¿½n el movimiento del mouse
         mouseX = Input.GetAxis("Mouse X") * sensitivity;
         mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-        // Limitar la rotación en el eje X
+        // Limitar la rotaciï¿½n en el eje X
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, minXRotation, maxXRotation);
 
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        // Rotación del objeto en el eje Y, con límite
+        // Rotaciï¿½n del objeto en el eje Y, con lï¿½mite
         yRotation += mouseX;
         //yRotation = Mathf.Clamp(yRotation, minYRotation, maxYRotation);
 
@@ -58,7 +58,5 @@ public class SimplePlayerController : MonoBehaviour
         {
             ScalesManager.Instance.LensScaleChanged(scrollInput);
         }
-
-        //Debug.Log($"Input scroll {Input.GetAxis("Mouse ScrollWheel")}");
     }
 }
