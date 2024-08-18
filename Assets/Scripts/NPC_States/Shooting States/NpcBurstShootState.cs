@@ -10,13 +10,11 @@ public class NpcBurstShootState : NpcShootState
 
     public override void EnterState(NpcStateManager npcStateManager)
     {
-        Debug.Log("set 1");
         originalShootsDelay = npcStateManager.shootManager.shootsDelay;
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)
     {
-        Debug.Log("set 2");
         // Reducir el temporizador en función del tiempo transcurrido
         timer -= Time.deltaTime;
 

@@ -13,6 +13,7 @@ public class NpcStateManager: MonoBehaviour
     public NpcWalkState walkingXYZState = new NpcWalkXYZState();
     public NpcWalkState walkingYZState = new NpcWalkYZState();
     public NpcWalkState walkingZState = new NpcWalkZState();
+    public NpcWalkState fastOrbit = new NpcFastOrbitX();
 
     // SHOOT STATES
     public NpcShootState currentShootingState;
@@ -35,7 +36,6 @@ public class NpcStateManager: MonoBehaviour
     private void Start()
     {
         initialPosition = transform.position;
-        print("Start: " + initialPosition);
         inferiorLimits += transform.position;
         superiorLimits += transform.position;
         currentWalkingState = idleWalk;
@@ -88,6 +88,11 @@ public class NpcStateManager: MonoBehaviour
             SwitchWalkState(walkingZState);
             SwitchShootState(simpleShoot);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            SwitchWalkState(fastOrbit);
+            SwitchShootState(idleShoot);
+        }
         currentWalkingState.UpdateState(this);
         currentShootingState.UpdateState(this);
     }
@@ -97,7 +102,6 @@ public class NpcStateManager: MonoBehaviour
         currentWalkingState.EndState(this);
         currentWalkingState = state;
         initialPosition = transform.position;
-        print("SwitchWalkState transform: " + initialPosition);
         state.EnterState(this);
     }
 
