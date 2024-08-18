@@ -8,8 +8,6 @@ public class ShootManager : MonoBehaviour
     //Lista de Origenes de disparo
     public ProjectileOrigin[] origins;
 
-    public GameObject player;
-
     [Header("Tiempo entre disparos")]
     [Range(0.00f, 5.00f)] [SerializeField] public float shootsDelay;
     public float launchForce = 10f;
@@ -60,27 +58,9 @@ public class ShootManager : MonoBehaviour
         //Obtenemos un Indice aleatorio del Array
         int index = UnityEngine.Random.Range( 0, origins.Length );
 
-        //Disparamos desde el Origen
-        origins[index].Shoot();
+        //Disparamos desde el Origen, indicando la fuerza del proyectil
+        origins[index].Shoot(launchForce);
     }
 
     //--------------------------------------------------------------
-
-    void LaunchProjectile()
-    {
-        /*/ Calcular la direcci�n hacia el Player
-        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-
-        // Agregar fuerza al proyectil en la direcci�n del Player
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.AddForce(directionToPlayer * launchForce, ForceMode.VelocityChange);
-        }
-        else
-        {
-            Debug.LogError("El proyectil no tiene un componente Rigidbody.");
-        }
-        */
-    }
 }

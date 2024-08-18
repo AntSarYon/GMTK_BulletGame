@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,24 +6,32 @@ public class ProjectileOrigin : MonoBehaviour
 {
     void Start()
     {
-        //Hacemos que el Origen siempre apunte hacia la cámara
+        //Hacemos que el Origen siempre apunte hacia la cÃ¡mara
         transform.LookAt(Camera.main.transform);
     }
 
+
     //-------------------------------------------------
 
-    void Update()
+    public void Shoot(float launchForce)
     {
-        //Hacemos que el Origen siempre apunte hacia la cámara
+
+        //Hacemos que el Origen siempre apunte hacia la cÃ¡mara
         transform.LookAt(Camera.main.transform);
-    }
 
-    //-------------------------------------------------
-
-    public void Shoot()
-    {
         //Solicitamos un Proyectil al Pool
-        ObjectPooling.instance.AskForProjectile(transform.position);
+        GameObject projectile = ObjectPooling.instance.AskForProjectile(transform.position);
+
+        // Calcular la direcciï¿½n hacia el Player
+        Vector3 playerPosition = Camera.main.transform.position;
+        Vector3 directionToPlayer = (playerPosition - transform.position).normalized;
+
+        // Agregar fuerza al proyectil en la direcciï¿½n del Player
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.AddForce(directionToPlayer * launchForce, ForceMode.VelocityChange);
+        else
+            Debug.LogError("El proyectil no tiene un componente Rigidbody.");
     }
 
 }

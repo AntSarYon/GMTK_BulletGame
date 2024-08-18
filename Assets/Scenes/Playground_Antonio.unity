@@ -1051,7 +1051,7 @@ GameObject:
   - component: {fileID: 675314851}
   m_Layer: 0
   m_Name: GlasesLens
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1869,9 +1869,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origins:
   - {fileID: 1764406307}
-  player: {fileID: 1410920979}
   shootsDelay: 0.4
-  launchForce: 10
+  launchForce: 20
 --- !u!4 &971669157
 Transform:
   m_ObjectHideFlags: 0
@@ -2001,7 +2000,7 @@ GameObject:
   - component: {fileID: 1004524612}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4358,15 +4357,15 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1187092388}
   - {fileID: 705507995}
   - {fileID: 1256595490}
-  - {fileID: 259595097}
   - {fileID: 983174830}
+  - {fileID: 259595097}
+  - {fileID: 1126588078}
+  - {fileID: 1187092388}
+  - {fileID: 971669157}
+  - {fileID: 1410920980}
   - {fileID: 1004524615}
   - {fileID: 864130621}
   - {fileID: 1220206315}
   - {fileID: 2143326450}
-  - {fileID: 1126588078}
-  - {fileID: 971669157}
-  - {fileID: 1410920980}
