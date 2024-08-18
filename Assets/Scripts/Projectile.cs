@@ -130,7 +130,7 @@ public class Projectile : MonoBehaviour
         // Agregar fuerza al proyectil en la direcci�n del Player
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null) 
-            rb.AddForce(directionToPlayer * 6, ForceMode.VelocityChange);
+            rb.AddForce(directionToPlayer * 8.5f, ForceMode.VelocityChange);
         else 
             Debug.LogError("El proyectil no tiene un componente Rigidbody.");
         
@@ -138,10 +138,9 @@ public class Projectile : MonoBehaviour
 
     //---------------------------------------------------------------------------
 
-
     void Update()
     {
-        //Movemos el PROYECTI HACIA EL JUGADOR
-        //transform.position = Vector3.MoveTowards(transform.position, Camera.main.transform.position, Time.deltaTime * 1.5f); ;
+        //Hacemos que el Proyectil siempre mire hacia el Player
+        transform.LookAt(SimplePlayerController.Instance.transform);
     }
 }
