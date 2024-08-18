@@ -21,7 +21,7 @@ public class NpcWalkXYZState : NpcWalkState
         Vector3 currentPosition = npcStateManager.transform.position;
         currentPosition.x = Mathf.MoveTowards(currentPosition.x, targetX, npcStateManager.speed * Time.deltaTime);
         currentPosition.y = Mathf.MoveTowards(currentPosition.y, targetY, npcStateManager.speed * Time.deltaTime);
-        currentPosition.z = Mathf.MoveTowards(currentPosition.z, targetZ, npcStateManager.speed/6 * Time.deltaTime);
+        currentPosition.z = Mathf.MoveTowards(currentPosition.z, targetZ, npcStateManager.speed * Time.deltaTime);
         npcStateManager.transform.position = currentPosition;
         Debug.Log(currentPosition);
 
