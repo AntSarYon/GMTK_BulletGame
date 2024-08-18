@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5408613481254509212}
   - component: {fileID: 109410790339951106}
   - component: {fileID: 1007286671506503293}
-  - component: {fileID: 3901700874693644841}
+  - component: {fileID: 699533255394468638}
   - component: {fileID: 2782804052672879034}
   m_Layer: 6
   m_Name: SpriteProjectile
@@ -107,8 +107,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3f6374a34dbbb2f40b2c0812182745bc, type: 3}
   blurMaterial: {fileID: 2100000, guid: 8a39c60e2beed784f9c4b91c808198d8, type: 2}
   defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
---- !u!135 &3901700874693644841
-SphereCollider:
+--- !u!65 &699533255394468638
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -126,7 +126,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.5
+  m_Size: {x: 0.87, y: 1.097, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2782804052672879034
 Rigidbody:
