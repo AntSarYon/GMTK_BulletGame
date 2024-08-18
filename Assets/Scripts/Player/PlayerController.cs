@@ -41,7 +41,5 @@ public class SimplePlayerController : MonoBehaviour
         {
             ScalesManager.Instance.LensScaleChanged(scrollInput);
         }
-
-        Debug.Log($"Input scroll {Input.GetAxis("Mouse ScrollWheel")}");
     }
 }

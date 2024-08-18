@@ -13,4 +13,9 @@ public class NpcIdleState : NpcWalkState
     {
         
     }
+
+    public override void EndState(NpcStateManager npcStateManager)
+    {
+
+    }
 }

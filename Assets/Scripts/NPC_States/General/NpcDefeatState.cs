@@ -14,4 +14,9 @@ public class NpcDefeatState : NpcBaseState
     {
         // TODO
     }
+
+    public override void EndState(NpcStateManager npcStateManager)
+    {
+
+    }
 }

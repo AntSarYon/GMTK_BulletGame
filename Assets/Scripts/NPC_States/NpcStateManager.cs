@@ -6,11 +6,14 @@ public class NpcStateManager: MonoBehaviour
 {
     public NpcWalkState currentWalkingState;
     public NpcWalkState idleWalk = new NpcIdleState();
-    public NpcWalkState walkingState = new NpcWalkingState();
+    public NpcWalkState walkingXState = new NpcWalkXState();
+    public NpcWalkState walkingXYState = new NpcWalkXYState();
+    public NpcWalkState walkingXYZState = new NpcWalkXYZState();
 
     public NpcShootState currentShootingState;
     public NpcShootState idleShoot = new NpcIdleShot();
-    public NpcShootState simpleShoot = new NpcShootingState();
+    public NpcShootState simpleShoot = new NpcSimpleShotState();
+    public NpcShootState burstShoot = new NpcBurstShootState();
 
     public NpcDefeatState defeatState = new NpcDefeatState();
 
@@ -18,9 +21,15 @@ public class NpcStateManager: MonoBehaviour
     public ShootManager shootManager;
     public GameObject target;
 
+    public Vector3 inferiorLimits;
+    public Vector3 superiorLimits;
+    public Transform gizmosTransform;
+
     private void Start()
     {
-        currentWalkingState = walkingState;
+        inferiorLimits += transform.position;
+        superiorLimits += transform.position;
+        currentWalkingState = walkingXState;
         currentShootingState = idleShoot;
 
         currentWalkingState.EnterState(this);
@@ -35,12 +44,22 @@ public class NpcStateManager: MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SwitchWalkState(walkingState);
+            SwitchWalkState(walkingXState);
             SwitchShootState(idleShoot);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SwitchWalkState(walkingState);
+            SwitchWalkState(walkingXState);
+            SwitchShootState(simpleShoot);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SwitchWalkState(walkingXYState);
+            SwitchShootState(burstShoot);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SwitchWalkState(walkingXYZState);
             SwitchShootState(simpleShoot);
         }
         currentWalkingState.UpdateState(this);
@@ -49,13 +68,31 @@ public class NpcStateManager: MonoBehaviour
 
     public void SwitchWalkState(NpcWalkState state)
     {
+        currentWalkingState.EndState(this);
         currentWalkingState = state;
         state.EnterState(this);
     }
 
     public void SwitchShootState(NpcShootState state)
     {
+        currentShootingState.EndState(this);
         currentShootingState = state;
         state.EnterState(this);
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Cambia el color de los Gizmos
+        Gizmos.color = Color.green;
+
+        // Dibuja un cuadro que representa los límites de movimiento
+        Gizmos.DrawWireCube(
+            gizmosTransform.position,  // Centro del cuadro
+            new Vector3(
+                superiorLimits.x - inferiorLimits.x, 
+                superiorLimits.y - inferiorLimits.y, 
+                superiorLimits.z - inferiorLimits.z
+               )               // Tamaño del cuadro
+        );
     }
 }

@@ -716,7 +716,7 @@ Transform:
   m_GameObject: {fileID: 583007266}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.25, z: 8.63}
+  m_LocalPosition: {x: 0, y: 3.25, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -755,6 +755,9 @@ MonoBehaviour:
   speed: 5
   shootManager: {fileID: 583007272}
   target: {fileID: 1157350918}
+  inferiorLimits: {x: -9, y: 1, z: 4}
+  superiorLimits: {x: 9, y: 6, z: -11}
+  gizmosTransform: {fileID: 797133985}
 --- !u!1 &629717988
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,6 +864,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629717988}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &797133984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 797133985}
+  m_Layer: 0
+  m_Name: Devil Gizmos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &797133985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797133984}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.25, z: 11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1075248128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,7 +1042,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1157350921}
-  - component: {fileID: 1157350920}
   - component: {fileID: 1157350919}
   m_Layer: 0
   m_Name: Player
@@ -1036,18 +1069,6 @@ MonoBehaviour:
   maxXRotation: 0
   minYRotation: -25
   maxYRotation: 25
---- !u!114 &1157350920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1157350918}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c71f07109881634c8e83f5c4e726379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1157350921
 Transform:
   m_ObjectHideFlags: 0
@@ -1507,3 +1528,4 @@ SceneRoots:
   - {fileID: 1827027250}
   - {fileID: 573843123}
   - {fileID: 583007271}
+  - {fileID: 797133985}

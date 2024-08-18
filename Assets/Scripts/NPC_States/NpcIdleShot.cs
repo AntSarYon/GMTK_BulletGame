@@ -13,4 +13,9 @@ public class NpcIdleShot : NpcShootState
     {
 
     }
+
+    public override void EndState(NpcStateManager npcStateManager)
+    {
+
+    }
 }

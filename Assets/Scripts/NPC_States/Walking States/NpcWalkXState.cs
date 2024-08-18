@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class NpcWalkingState : NpcWalkState
+public class NpcWalkXState : NpcWalkState
 {
     private float targetX;
 
@@ -29,5 +29,10 @@ public class NpcWalkingState : NpcWalkState
         // Obtiene una nueva posición objetivo aleatoria en el rango especificado
         float randomX = Random.Range(-3, +3);
         targetX = npcStateManager.target.transform.position.x + randomX;
+    }
+
+    public override void EndState(NpcStateManager npcStateManager)
+    {
+
     }
 }
