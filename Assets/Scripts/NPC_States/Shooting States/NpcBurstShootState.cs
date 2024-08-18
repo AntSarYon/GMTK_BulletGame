@@ -2,57 +2,65 @@ using UnityEngine;
 
 public class NpcBurstShootState : NpcShootState
 {
-    private float timer = 0f;
-    private float interval = 3f;
-    private bool isShooting = false;
-    private float disableTimer = 1f;
-    private float originalShootsDelay = 1f;
+    float burstDelay = 2f; // Tiempo entre ráfagas
+    float shootInterval = 0.1f; // Tiempo entre balas en una ráfaga
+    int bulletsPerBurst = 15; // Número de balas por ráfaga
+    float launchForce = 10f;
+    ShootManager shootManager;
+
+    float shootTimer = 0f; // Temporizador para controlar las ráfagas
+    bool isBursting = false; // Controla si está en una ráfaga
 
     public override void EnterState(NpcStateManager npcStateManager)
     {
-        originalShootsDelay = npcStateManager.shootManager.shootsDelay;
-        npcStateManager.shootManager.shootTimer = npcStateManager.shootManager.shootsDelay;
+        shootManager = npcStateManager.shootManager;
+        shootTimer = 0f;
+        isBursting = false;
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)
     {
-        // Reducir el temporizador en función del tiempo transcurrido
-        timer -= Time.deltaTime;
+        shootTimer += Time.deltaTime;
 
-        if (timer <= 0f && !isShooting)
+        if (isBursting)
         {
-            // Ejecutar las acciones iniciales
-            npcStateManager.shootManager.enabled = true;
-
-
-            // Iniciar el timer para deshabilitar después de 1 segundo
-            npcStateManager.shootManager.shootsDelay = 0.1f;
-            isShooting = true;
-            disableTimer = 1f;
-
-            // Restablece el temporizador para el próximo intervalo
-            timer = interval;
-        }
-
-        // Si estamos en el estado de disparo, reducir el temporizador de desactivación
-        if (isShooting)
-        {
-            disableTimer -= Time.deltaTime;
-
-            if (disableTimer <= 0f)
+            // Ejecutar la ráfaga
+            if (shootTimer >= shootInterval)
             {
-                // Deshabilitar el shootManager después de 1 segundo
-                npcStateManager.shootManager.enabled = false;
+                ShootFromRandomOrigin(npcStateManager);
+                shootTimer = 0f;
+                bulletsPerBurst--;
 
-                // Resetea el estado de disparo
-                isShooting = false;
+                // Terminar la ráfaga después de disparar todas las balas
+                if (bulletsPerBurst <= 0)
+                {
+                    isBursting = false;
+                    bulletsPerBurst = 15; // Restablecer el conteo de balas para la próxima ráfaga
+                }
+            }
+        }
+        else
+        {
+            // Esperar el tiempo entre ráfagas
+            if (shootTimer >= burstDelay)
+            {
+                isBursting = true;
+                shootTimer = 0f;
             }
         }
     }
 
     public override void EndState(NpcStateManager npcStateManager)
     {
-        Debug.Log("set shoot");
-        npcStateManager.shootManager.shootsDelay = originalShootsDelay;
+        // Puedes añadir lógica para cuando termine el estado si es necesario
+    }
+
+    private void ShootFromRandomOrigin(NpcStateManager npcStateManager)
+    {
+        // Obtener un índice aleatorio del array
+        int index = Random.Range(0, shootManager.origins.Length);
+
+        // Disparar desde el origen, indicando la fuerza del proyectil
+        shootManager.origins[index].Shoot(launchForce);
     }
 }

@@ -30,6 +30,8 @@ public class NpcStateManager: MonoBehaviour
     public NpcShootState idleShoot = new NpcIdleShot();
     public NpcShootState simpleShoot = new NpcSimpleShotState();
     public NpcShootState burstShoot = new NpcBurstShootState();
+    public NpcShootState boxShoot = new NpcBox9Shot();
+    public NpcShootState lineShoot = new NpcLineShot();
 
     public float movementSpeed;
     public float rotationSpeed;
@@ -70,13 +72,13 @@ public class NpcStateManager: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SwitchWalkState(walkingXState);
-            SwitchShootState(idleShoot);
+            SwitchShootState(lineShoot);
         }
         // orbitated on X
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SwitchWalkState(walkingX2State);
-            SwitchShootState(simpleShoot);
+            SwitchShootState(boxShoot);
         }
         // orbitated on X and move vertical
         if (Input.GetKeyDown(KeyCode.Alpha4))

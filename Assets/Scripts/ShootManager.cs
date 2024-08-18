@@ -37,18 +37,7 @@ public class ShootManager : MonoBehaviour
 
     void Update()
     {
-        //Incrementamos el Timer
-        shootTimer += Time.deltaTime;
-
-        //Si el Timer llega al limite
-        if (shootTimer >= shootsDelay)
-        {
-            //Disparamos de un Origen random
-            ShootFromRandomOrigin();
-
-            //Retornamos el Timer a 0
-            shootTimer = 0;
-        }
+        
     }
 
     //--------------------------------------------------------------
