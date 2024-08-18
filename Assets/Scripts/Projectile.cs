@@ -71,9 +71,6 @@ public class Projectile : MonoBehaviour
             //Restauro la Escala original del Proyectil
             transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
-
-        //Disparamos el Proyectile
-        Launch();
     }
 
     //---------------------------------------------------------------------------
@@ -121,26 +118,28 @@ public class Projectile : MonoBehaviour
 
     //---------------------------------------------------------------------------
 
-    private void Launch()
-    {
-        // Calcular la direcci�n hacia el Player
-        Vector3 playerPosition = FindObjectOfType<SimplePlayerController>().transform.position;
-        Vector3 directionToPlayer = (playerPosition - transform.position).normalized;
-
-        // Agregar fuerza al proyectil en la direcci�n del Player
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null) 
-            rb.AddForce(directionToPlayer * 8.5f, ForceMode.VelocityChange);
-        else 
-            Debug.LogError("El proyectil no tiene un componente Rigidbody.");
-        
-    }
-
-    //---------------------------------------------------------------------------
-
     void Update()
     {
         //Hacemos que el Proyectil siempre mire hacia el Player
         transform.LookAt(SimplePlayerController.Instance.transform);
+    }
+
+    //---------------------------------------------------------------------------
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Si hemos impactado al jugador
+        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("MainCamera"))
+        {
+            //Desactivamos el Proyectil tras 3 segundos
+            Invoke(nameof(TurnOffProjectile), 1);
+        }
+
+        //Si hemos impactado el suelo
+        else if (collision.transform.CompareTag("Floor") || collision.transform.CompareTag("Column"))
+        {
+            //Desactivamos el Proyectil 
+            TurnOffProjectile();
+        }
     }
 }
