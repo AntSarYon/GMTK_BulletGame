@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class SimplePlayerController : MonoBehaviour
 {
+    public static SimplePlayerController Instance;
+
     //Referencia a C�mara
     private Transform cameraMain;
 
@@ -22,6 +24,9 @@ public class SimplePlayerController : MonoBehaviour
 
     void Awake()
     {
+        //Asignamos Instancia
+        Instance = this;
+
         //Obtenemos referencia al componente RigidBody
         mRb = GetComponent<Rigidbody>();
     }
