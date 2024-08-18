@@ -25,9 +25,10 @@ public class FocusUI : MonoBehaviour
     void Update()
     {
         //Actualizamos el texto
-        txtFocusValue.text = $"x{scaleManager.scale}'";
+        txtFocusValue.text = $"x{Mathf.Round(scaleManager.scale * 100f) / 100f}'";
 
         //Actualizamos la Barra
-        scrollBarFocus.value = scaleManager.scale / 10;
+        scrollBarFocus.value = ((scaleManager.scale * 100) / 2) / 100;
+        Debug.Log(scrollBarFocus.value);
     }
 }

@@ -63,7 +63,6 @@ public class SimplePlayerController : MonoBehaviour
 
     private void MoverseConFuerza()
     {
-
         //Aplicamos una fuerza al RB del Player para moverlo
         mRb.AddForce(
             (mDirection.y * transform.forward + mDirection.x * transform.right).normalized * movementSpeed,
@@ -111,18 +110,27 @@ public class SimplePlayerController : MonoBehaviour
 
     //----------------------------------------------------------------------
 
+    void ControlLensScroll()
+    {
+        //Leemos el input del Scroll
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        
+        //Si el input de Scroll es distinto de 0
+        if (scrollInput != 0f)
+        {
+            //Disparamos Evento de Cambiar Lente, pasando el valor de Scroll
+            ScalesManager.Instance.LensScaleChanged(scrollInput);
+        }
+    }
+
+    //----------------------------------------------------------------------
+
     void Update()
     {
-        //Manejamos los estados para controlar el movimiento que se realizar�
-
         ControlSpeed();
 
         ControlarRotacion();
 
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollInput != 0f)
-        {
-            ScalesManager.Instance.LensScaleChanged(scrollInput);
-        }
+        ControlLensScroll();
     }
 }
