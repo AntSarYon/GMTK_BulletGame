@@ -115,6 +115,7 @@ public class NpcStateManager: MonoBehaviour
     {
         currentWalkingState.EndState(this);
         GetRandomEnemyPosition();
+        RefreshLookTarget();
         currentWalkingState = state;
         initialPosition = transform.position;
         state.EnterState(this);
@@ -167,6 +168,25 @@ public class NpcStateManager: MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    void RefreshLookTarget()
+    {
+        // Obtén la dirección desde el enemigo hacia el jugador
+        Vector3 direction = target.transform.position - transform.position;
+
+        // Ajusta la dirección para que ignore el eje Y
+        direction.y = 0;
+
+        // Si la dirección es diferente de cero, ajusta la rotación
+        if (direction != Vector3.zero)
+        {
+            // Calcula la rotación deseada
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            // Aplica la rotación instantáneamente
+            transform.rotation = targetRotation;
         }
     }
 }
