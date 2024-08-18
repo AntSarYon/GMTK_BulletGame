@@ -1,6 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+
+public enum EnemyPosition
+{
+    Near,
+    Normal,
+    Far
+}
+
 
 public class NpcStateManager: MonoBehaviour
 {
@@ -32,10 +42,14 @@ public class NpcStateManager: MonoBehaviour
 
     public float minDistanceZ;
     public float maxDistanceZ;
+    private float originalZ;
+
+    public EnemyPosition currentEnemyPosition;
 
     private void Start()
     {
         initialPosition = transform.position;
+        originalZ = initialPosition.z;
         inferiorLimits += transform.position;
         superiorLimits += transform.position;
         currentWalkingState = idleWalk;
@@ -100,6 +114,8 @@ public class NpcStateManager: MonoBehaviour
     public void SwitchWalkState(NpcWalkState state)
     {
         currentWalkingState.EndState(this);
+        GetRandomEnemyPosition();
+        RefreshLookTarget();
         currentWalkingState = state;
         initialPosition = transform.position;
         state.EnterState(this);
@@ -118,5 +134,59 @@ public class NpcStateManager: MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z + minDistanceZ),
                         new Vector3(transform.position.x, transform.position.y, transform.position.z + maxDistanceZ));
+    }
+
+    public void GetRandomEnemyPosition()
+    {
+        EnemyPosition newEnemyPosition;
+
+        do
+        {
+            // Genera un número aleatorio entre 0 y el número de valores en el enum
+            newEnemyPosition = (EnemyPosition)UnityEngine.Random.Range(0, Enum.GetValues(typeof(EnemyPosition)).Length);
+        } while (newEnemyPosition == currentEnemyPosition);
+        currentEnemyPosition = newEnemyPosition;
+
+        PrintEnemyPosition(newEnemyPosition);
+    }
+
+    public void PrintEnemyPosition(EnemyPosition position)
+    {
+        switch (position)
+        {
+            case EnemyPosition.Near:
+                transform.position = new Vector3(transform.position.x, transform.position.y, originalZ + 10);
+                initialPosition = transform.position;
+                break;
+            case EnemyPosition.Normal:
+                transform.position = new Vector3(transform.position.x, transform.position.y, originalZ);
+                initialPosition = transform.position;
+                break;
+            case EnemyPosition.Far:
+                transform.position = new Vector3(transform.position.x, transform.position.y, originalZ - 10);
+                initialPosition = transform.position;
+                break;
+            default:
+                break;
+        }
+    }
+
+    void RefreshLookTarget()
+    {
+        // Obtén la dirección desde el enemigo hacia el jugador
+        Vector3 direction = target.transform.position - transform.position;
+
+        // Ajusta la dirección para que ignore el eje Y
+        direction.y = 0;
+
+        // Si la dirección es diferente de cero, ajusta la rotación
+        if (direction != Vector3.zero)
+        {
+            // Calcula la rotación deseada
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            // Aplica la rotación instantáneamente
+            transform.rotation = targetRotation;
+        }
     }
 }
