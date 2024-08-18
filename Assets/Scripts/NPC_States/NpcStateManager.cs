@@ -115,7 +115,7 @@ public class NpcStateManager: MonoBehaviour
     {
         currentWalkingState.EndState(this);
         GetRandomEnemyPosition();
-        RefreshLookTarget();
+        // RefreshLookTarget();
         currentWalkingState = state;
         initialPosition = transform.position;
         state.EnterState(this);

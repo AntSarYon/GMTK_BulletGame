@@ -11,6 +11,7 @@ public class NpcBurstShootState : NpcShootState
     public override void EnterState(NpcStateManager npcStateManager)
     {
         originalShootsDelay = npcStateManager.shootManager.shootsDelay;
+        npcStateManager.shootManager.shootTimer = npcStateManager.shootManager.shootsDelay;
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)

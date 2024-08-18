@@ -15,7 +15,7 @@ public class ShootManager : MonoBehaviour
     public float launchForce = 10f;
 
     //Timer de disparo
-    private float shootTimer;
+    public float shootTimer;
 
     //----------------------------------------------------------------
 
