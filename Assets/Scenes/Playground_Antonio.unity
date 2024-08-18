@@ -1066,7 +1066,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -1, y: 0.6, z: 0}
-  m_LocalScale: {x: 0.18, y: 0.18, z: 0.12297781}
+  m_LocalScale: {x: 0.3, y: 0.18, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1421656119}
@@ -1707,7 +1707,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -3091,8 +3091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd80519e18697b5489c76f776e3d9c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opacityChangeSpeed: 0.1
-  lenRenderer: {fileID: 0}
+  multiplier: 10
 --- !u!1 &1483670272
 GameObject:
   m_ObjectHideFlags: 0

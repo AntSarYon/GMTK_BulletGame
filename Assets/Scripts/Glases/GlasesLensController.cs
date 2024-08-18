@@ -5,18 +5,11 @@ using UnityEngine;
 
 public class GlasesLensController : MonoBehaviour
 {
-    public float opacityChangeSpeed = 0.1f; // Velocidad a la que cambia la opacidad
+    
+    private float minZoom = 50.00f;
+    private float maxZoom = 70.00f;
 
-    public Renderer lenRenderer;
-    private Color lenColor;
-
-    //---------------------------------------------------------------
-
-    void Awake()
-    {
-        //Obtenemos referencia a componentes
-        lenRenderer = GetComponentInChildren<Renderer>();
-    }
+    [SerializeField] private float multiplier = 10f;
 
     //---------------------------------------------------------------
 
@@ -28,12 +21,11 @@ public class GlasesLensController : MonoBehaviour
 
     //---------------------------------------------------------------
 
-    private void LensScaleChangedDelegate(float scrollInput)
+    private void LensScaleChangedDelegate(float lencChange)
     {
-        // Ajusta la opacidad del color del cubo
-        lenColor.a = Mathf.Clamp(lenColor.a + scrollInput * opacityChangeSpeed, 0f, 1f);
-
-        // Aplica el color modificado al material del cubo
-        lenRenderer.material.color = lenColor;
+        Camera.main.fieldOfView = Mathf.Clamp(
+            Camera.main.fieldOfView + (lencChange * multiplier), 
+            minZoom, maxZoom
+            );
     }
 }
