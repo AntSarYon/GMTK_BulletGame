@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class NpcFastOrbitX : NpcWalkState
 {
-    float minSpeed = 200f;
-    float maxSpeed = 450f;
+    float minSpeed = 150f;
+    float maxSpeed = 200f;
     float timer = 0f; // Temporizador
 
     public override void EnterState(NpcStateManager npcStateManager)
@@ -22,7 +22,7 @@ public class NpcFastOrbitX : NpcWalkState
         timer += Time.deltaTime;
 
         // Verifica si han pasado 1.5 segundos
-        if (timer >= 0.65f)
+        if (timer >= 0.75f)
         {
             // Opcional: Reinicia el temporizador si quieres que el mensaje se imprima cada 1.5 segundos.
             npcStateManager.SwitchWalkState(npcStateManager.walkingXState);
