@@ -15,11 +15,11 @@ public class NpcStateManager: MonoBehaviour
     public NpcWalkState currentWalkingState;
     public NpcWalkState idleWalk = new NpcIdleState();
     public NpcWalkState walkingXState = new NpcWalkXState();
-    public NpcWalkState walkingX2State = new NpcWalkX2State();
     public NpcWalkState walkingXYState = new NpcWalkXYState();
     public NpcWalkState walkingXYZState = new NpcWalkXYZState();
     public NpcWalkState walkingYZState = new NpcWalkYZState();
     public NpcWalkState walkingZState = new NpcWalkZState();
+    public NpcWalkState walkingX2State = new NpcWalkX2State();
     public NpcWalkState fastOrbit = new NpcFastOrbitX();
 
     // SHOOT STATES
@@ -70,37 +70,37 @@ public class NpcStateManager: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SwitchWalkState(walkingXState);
-            SwitchShootState(simpleShoot);
+            SwitchShootState(idleShoot);
         }
         // orbitated on X
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SwitchWalkState(walkingXState);
-            SwitchShootState(burstShoot);
+            SwitchWalkState(walkingXYState);
+            SwitchShootState(idleShoot);
         }
         // orbitated on X and move vertical
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            SwitchWalkState(walkingXState);
-            SwitchShootState(boxShoot);
+            SwitchWalkState(walkingXYZState);
+            SwitchShootState(idleShoot);
         }
         // move on X, Y and Z
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            SwitchWalkState(walkingXState);
-            SwitchShootState(lineShoot);
+            SwitchWalkState(walkingYZState);
+            SwitchShootState(idleShoot);
         }
         // move on Y and Z
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            SwitchWalkState(walkingXState);
-            SwitchShootState(simpleShoot);
+            SwitchWalkState(walkingZState);
+            SwitchShootState(idleShoot);
         }
         //move on Z
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            SwitchWalkState(walkingXState);
-            SwitchShootState(simpleShoot);
+            SwitchWalkState(walkingX2State);
+            SwitchShootState(idleShoot);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
@@ -117,8 +117,8 @@ public class NpcStateManager: MonoBehaviour
         NpcWalkState previousState = state;
         currentWalkingState = state;
         initialPosition = transform.position;
-        // if (currentWalkingState != fastOrbit || previousState != fastOrbit)
-            // GetRandomEnemyPosition();
+        if (currentWalkingState != fastOrbit || previousState != fastOrbit)
+            GetRandomEnemyPosition();
         state.EnterState(this);
     }
 
@@ -166,6 +166,8 @@ public class NpcStateManager: MonoBehaviour
                 break;
             
         }
+
+        print(transform.position);
 
         initialPosition = transform.position;
     }
