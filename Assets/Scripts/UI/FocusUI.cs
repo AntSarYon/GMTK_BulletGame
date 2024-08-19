@@ -29,6 +29,5 @@ public class FocusUI : MonoBehaviour
 
         //Actualizamos la Barra
         scrollBarFocus.value = ((scaleManager.scale * 100) / 2) / 100;
-        Debug.Log(scrollBarFocus.value);
     }
 }

@@ -3028,37 +3028,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1513408753
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1513408754}
-  m_Layer: 0
-  m_Name: Thedevil Gizmos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1513408754
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513408753}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.71, z: 17.95}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1552280515
 GameObject:
   m_ObjectHideFlags: 0
@@ -3759,7 +3728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc208edce577eb42a3e3c88cf6c115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  movementSpeed: 10
   rotationSpeed: 10
   shootManager: {fileID: 1760206461}
   target: {fileID: 621723563}
@@ -3768,7 +3737,8 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   minDistanceZ: -12
   maxDistanceZ: 4.27
-  currentEnemyPosition: 0
+  localPos: {fileID: 28096535}
+  currentPosition: 0
 --- !u!114 &1760206461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4605,7 +4575,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1771074087}
-  - {fileID: 1513408754}
   - {fileID: 1368223094}
   - {fileID: 1934602876}
   - {fileID: 621723568}

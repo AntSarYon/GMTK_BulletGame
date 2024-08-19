@@ -44,14 +44,15 @@ public class NpcStateManager: MonoBehaviour
 
     public float minDistanceZ;
     public float maxDistanceZ;
-    private float originalZ;
+    private float loadZ = 0;
+    public Transform localPos;
+    private int rangeTeleportZ = 75;
 
-    public EnemyPosition currentEnemyPosition;
+    public EnemyPosition currentPosition;
 
     private void Start()
     {
         initialPosition = transform.position;
-        originalZ = initialPosition.z;
         inferiorLimits += transform.position;
         superiorLimits += transform.position;
         currentWalkingState = idleWalk;
@@ -117,17 +118,12 @@ public class NpcStateManager: MonoBehaviour
 
     public void SwitchWalkState(NpcWalkState state)
     {
-        currentWalkingState.EndState(this);
-        if (state == fastOrbit)
-        {
-            // GetRandomEnemyPosition();
-        }
-        else
-        {
-            RefreshLookTarget();
-        }
+        currentWalkingState.EndState(this);RefreshLookTarget();
+        NpcWalkState previousState = state;
         currentWalkingState = state;
         initialPosition = transform.position;
+        if (currentWalkingState != fastOrbit || previousState != fastOrbit)
+            GetRandomEnemyPosition();
         state.EnterState(this);
     }
 
@@ -148,37 +144,35 @@ public class NpcStateManager: MonoBehaviour
 
     public void GetRandomEnemyPosition()
     {
-        EnemyPosition newEnemyPosition;
+        EnemyPosition newPosition;
 
         do
         {
             // Genera un número aleatorio entre 0 y el número de valores en el enum
-            newEnemyPosition = (EnemyPosition)UnityEngine.Random.Range(0, Enum.GetValues(typeof(EnemyPosition)).Length);
-        } while (newEnemyPosition == currentEnemyPosition);
-        currentEnemyPosition = newEnemyPosition;
+            newPosition = (EnemyPosition)UnityEngine.Random.Range(0, Enum.GetValues(typeof(EnemyPosition)).Length);
+        } while (newPosition == currentPosition);
+        currentPosition = newPosition;
 
-        PrintEnemyPosition(newEnemyPosition);
-    }
-
-    public void PrintEnemyPosition(EnemyPosition position)
-    {
-        switch (position)
+        switch (currentPosition)
         {
             case EnemyPosition.Near:
-                transform.position = new Vector3(transform.position.x, transform.position.y, originalZ + 10);
-                initialPosition = transform.position;
+                transform.position = localPos.TransformPoint(new Vector3(0, 0, rangeTeleportZ + loadZ));
+                loadZ = -rangeTeleportZ;
                 break;
             case EnemyPosition.Normal:
-                transform.position = new Vector3(transform.position.x, transform.position.y, originalZ);
-                initialPosition = transform.position;
+                transform.position = localPos.TransformPoint(new Vector3(0, 0, 0 + loadZ));
+                loadZ = 0;
                 break;
             case EnemyPosition.Far:
-                transform.position = new Vector3(transform.position.x, transform.position.y, originalZ - 10);
-                initialPosition = transform.position;
+                transform.position = localPos.TransformPoint(new Vector3(0, 0, -rangeTeleportZ + loadZ));
+                loadZ = rangeTeleportZ;
                 break;
             default:
                 break;
+            
         }
+
+        initialPosition = transform.position;
     }
 
     void RefreshLookTarget()
