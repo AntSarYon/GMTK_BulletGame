@@ -37,8 +37,17 @@ public class NpcBlurController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         //Asignamos funcion delegada
         ScalesManager.Instance.OnLensScaleChanged += LensChangedDelegate;
+        
+        //Asignamos una Escala principal aleatoria
+        principalScale = UnityEngine.Random.Range(0, 3);
+
+        myScale = 1;
+
+        //Actualizamos la Escala del Proyectil en base al valor del Enum
+        transform.localScale = new Vector3(myScale, myScale, myScale);
     }
 
     //-----------------------------------------------------------------------
@@ -46,7 +55,7 @@ public class NpcBlurController : MonoBehaviour
     private void LensChangedDelegate(float lenChange, float newScale)
     {
         //Calculamos el Valor de Blur con la Escala de Foco actual
-        blurValue = (Mathf.Abs(newScale - principalScale) / 10) * 2;
+        blurValue = (Mathf.Abs(newScale - principalScale) / 10);
 
         //Actualizamos el valor del Blur
         mSpRender.material.SetFloat("_BlurAmount", blurValue);
@@ -78,6 +87,9 @@ public class NpcBlurController : MonoBehaviour
 
     void Update()
     {
+        //Actualizamos la Escala del Proyectil en base al valor del Enum
+        transform.localScale = new Vector3(myScale, myScale, myScale);
+
         //Incrementamos el Timer de BlurChange
         BlurChangeTimer += Time.deltaTime;
 

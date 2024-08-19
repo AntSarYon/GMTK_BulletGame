@@ -11,8 +11,8 @@ public class Projectile : MonoBehaviour
 {
     //Escala del Proyectil
     private float myScale;
- 
-    //Escala principal del Proyectil (sera de 0 a2)
+
+    //Escala principal del Proyectil (sera de 0 a 2)
     [SerializeField] public int principalScale;
 
     [Range(0,0.2f)] [SerializeField] private float blurValue;
@@ -43,6 +43,8 @@ public class Projectile : MonoBehaviour
 
         //Asignamos un Sprite aleatorio
         mSpRender.sprite = arrSprites[UnityEngine.Random.Range(0, arrSprites.Length)];
+        //Asignamos una Escala para la Proporción idónea
+        principalScale = Random.Range(0, 3);
 
         //Iniciamos indicando una Escala de 2 (GRANDE)
         myScale = 2;
