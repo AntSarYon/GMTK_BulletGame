@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NpcSimpleShotState : NpcShootState
 {
-    float shootsDelay = 2f;
+    float shootsDelay = 3f;
     float launchForce = 5f;
     ShootManager shootManager;
 

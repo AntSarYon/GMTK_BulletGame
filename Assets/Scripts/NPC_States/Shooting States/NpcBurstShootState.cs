@@ -4,9 +4,10 @@ public class NpcBurstShootState : NpcShootState
 {
     float burstDelay = 2.5f; // Tiempo entre ráfagas
     float shootInterval = 0.1f; // Tiempo entre balas en una ráfaga
-    int bulletsPerBurst = 15; // Número de balas por ráfaga
+    int bulletsPerBurst = 10; // Número de balas por ráfaga
     float launchForce = 10f;
     ShootManager shootManager;
+    int size;
 
     float shootTimer = 0f; // Temporizador para controlar las ráfagas
     bool isBursting = false; // Controla si está en una ráfaga
@@ -16,6 +17,7 @@ public class NpcBurstShootState : NpcShootState
         shootManager = npcStateManager.shootManager;
         shootTimer = 0f;
         isBursting = false;
+        size = shootManager.SetSize();
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)
@@ -46,6 +48,7 @@ public class NpcBurstShootState : NpcShootState
             {
                 isBursting = true;
                 shootTimer = 0f;
+                size = shootManager.SetSize();
             }
         }
     }
@@ -61,6 +64,6 @@ public class NpcBurstShootState : NpcShootState
         int index = Random.Range(0, shootManager.origins.Length);
 
         // Disparar desde el origen, indicando la fuerza del proyectil
-        shootManager.origins[index].Shoot(launchForce, shootManager.SetSize());
+        shootManager.origins[index].Shoot(launchForce, size);
     }
 }

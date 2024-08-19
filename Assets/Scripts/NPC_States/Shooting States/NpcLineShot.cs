@@ -4,8 +4,8 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class NpcLineShot : NpcShootState
 {
-    float shootsDelay = 1.5f;
-    float launchForce = 7f;
+    float shootsDelay = 3f;
+    float launchForce = 5f;
     ShootManager shootManager;
 
     int columns = 10;
@@ -42,6 +42,8 @@ public class NpcLineShot : NpcShootState
         // Obtener el origen para disparar
         Transform origin = shootManager.origins[0].transform; // Asumimos que solo hay un origen y tomamos el primer índice
 
+        int size = shootManager.SetSize();
+
         // Disparar en una formación de llínea
         for (int column = 0; column < columns; column++)
         {
@@ -51,8 +53,6 @@ public class NpcLineShot : NpcShootState
             // Aplica el offset a la posición del origen
             Vector3 shootDirection = origin.forward; // Dirección del disparo
             Vector3 shootPosition = origin.position + positionOffset;
-
-            int size = shootManager.SetSize();
 
             // Dispara desde la posición calculada
             shootManager.origins[0].Shoot(launchForce, positionOffset, positionOffset, size);

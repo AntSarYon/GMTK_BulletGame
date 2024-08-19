@@ -71,7 +71,7 @@ public class NPC_HealthManager : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Vida restante: {Health}");
+                // Debug.Log($"Vida restante: {Health}");
             }
         }
         

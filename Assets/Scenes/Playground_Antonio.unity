@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.99378926, g: 0.6851977, b: 0.23816139, a: 1}
+  m_IndirectSpecularColor: {r: 0.99378926, g: 0.6851934, b: 0.23816139, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2350,7 +2350,9 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   minDistanceZ: -12
   maxDistanceZ: 4.27
-  currentEnemyPosition: 0
+  localPos: {fileID: 0}
+  rangeTeleportZ: 75
+  currentPosition: 0
 --- !u!114 &971669156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2367,6 +2369,8 @@ MonoBehaviour:
   - {fileID: 1764406307}
   shootsDelay: 1
   launchForce: 20
+  minScale: 0
+  maxScale: 3
   shootTimer: 0
 --- !u!4 &971669157
 Transform:
@@ -3358,7 +3362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1220206315
 Transform:
   m_ObjectHideFlags: 0
