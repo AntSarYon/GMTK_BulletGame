@@ -118,8 +118,14 @@ public class NpcStateManager: MonoBehaviour
     public void SwitchWalkState(NpcWalkState state)
     {
         currentWalkingState.EndState(this);
-        GetRandomEnemyPosition();
-        // RefreshLookTarget();
+        if (state == fastOrbit)
+        {
+            // GetRandomEnemyPosition();
+        }
+        else
+        {
+            RefreshLookTarget();
+        }
         currentWalkingState = state;
         initialPosition = transform.position;
         state.EnterState(this);

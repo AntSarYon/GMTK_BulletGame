@@ -4441,6 +4441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fpChild: {fileID: 28096535}
+  temp: {fileID: 856525344750821699, guid: a10a94b59d7cf434db28848a391aa84a, type: 3}
 --- !u!1 &2030879612
 GameObject:
   m_ObjectHideFlags: 0
