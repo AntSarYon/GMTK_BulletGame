@@ -76,13 +76,13 @@ public class NpcStateManager: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SwitchWalkState(walkingXYState);
-            SwitchShootState(simpleShoot);
+            SwitchShootState(burstShoot);
         }
         // orbitated on X and move vertical
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             SwitchWalkState(walkingXYZState);
-            SwitchShootState(simpleShoot);
+            SwitchShootState(boxShoot);
         }
         // move on X, Y and Z
         if (Input.GetKeyDown(KeyCode.Alpha5))
@@ -94,7 +94,7 @@ public class NpcStateManager: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             SwitchWalkState(walkingZState);
-            SwitchShootState(simpleShoot);
+            SwitchShootState(burstShoot);
         }
         //move on Z
         if (Input.GetKeyDown(KeyCode.Alpha7))
@@ -189,5 +189,12 @@ public class NpcStateManager: MonoBehaviour
             // Aplica la rotación instantáneamente
             transform.rotation = targetRotation;
         }
+    }
+
+
+    public void OrbitAttack()
+    {
+        SwitchWalkState(fastOrbit);
+        SwitchShootState(simpleShoot);
     }
 }

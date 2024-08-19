@@ -5,7 +5,7 @@ public class NpcBurstShootState : NpcShootState
     float burstDelay = 2.5f; // Tiempo entre ráfagas
     float shootInterval = 0.1f; // Tiempo entre balas en una ráfaga
     int bulletsPerBurst = 10; // Número de balas por ráfaga
-    float launchForce = 10f;
+    float launchForce = 15f;
     ShootManager shootManager;
     int size;
 

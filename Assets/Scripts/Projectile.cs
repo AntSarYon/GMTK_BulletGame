@@ -44,24 +44,20 @@ public class Projectile : MonoBehaviour
         //Asignamos un Sprite aleatorio
         mSpRender.sprite = arrSprites[UnityEngine.Random.Range(0, arrSprites.Length)];
         //Asignamos una Escala para la Proporción idónea
-        principalScale = Random.Range(0, 3);
-
-        //Iniciamos indicando una Escala de 2 (GRANDE)
-        myScale = 2;
-
-        //Actualizamos la Escala del Proyectil en base al valor del Enum
-        transform.localScale = new Vector3(myScale, myScale, myScale);
+        //principalScale = Random.Range(0, 3);
 
         //Si la escala del ScalesManager es distinta que la Principal asignada a este proyectil,
         if (ScalesManager.Instance.scale != principalScale)
         {
             //Calculamos el Valor de Blur con la Escala de Foco actual
-            blurValue = Mathf.Abs(ScalesManager.Instance.scale - principalScale) / 10;
+            blurValue = (Mathf.Abs(ScalesManager.Instance.scale - principalScale) / 10)*2;
+            if (blurValue < 0.005f) blurValue = 0;
 
             //Hacemos que el Sprite se vea grande
-            myScale = Mathf.Lerp(0.5f, 2.00f, (blurValue/0.2f));
+            myScale = Mathf.Lerp(0.5f, 6.00f, (blurValue/0.2f));
+            if (myScale < 1.5f) myScale = 0.5f;
         }
-        //Si la escala del ScalesManager es distinta que la Principal asignada a este proyectil,
+        //Si la escala del ScalesManager es igual que la Principal asignada a este proyectil,
         else
         {
             //Hacemos que el objeto se vea nitido
@@ -70,6 +66,12 @@ public class Projectile : MonoBehaviour
             //Restauro la Escala original del Proyectil
             myScale = 0.5f;
         }
+
+        //Actualizamos el valor del Blur
+        mSpRender.material.SetFloat("_BlurAmount", blurValue);
+
+        //Actualizamos la Escala del Proyectil
+        transform.localScale = new Vector3(myScale, myScale, myScale);
     }
 
     //---------------------------------------------------------------------------
@@ -96,12 +98,14 @@ public class Projectile : MonoBehaviour
     {
         //Calculamos el Valor de Blur con la Escala de Foco actual
         blurValue = (Mathf.Abs(newScale - principalScale) / 10) *2;
+        if (blurValue < 0.005f) blurValue = 0;
 
         //Actualizamos el valor del Blur
         mSpRender.material.SetFloat("_BlurAmount", blurValue);
 
         //Hacemos que el Sprite se vea grande
-        myScale = Mathf.Lerp(0.5f, 2.00f, (blurValue / 0.2f));
+        myScale = Mathf.Lerp(0.5f, 6.00f, (blurValue / 0.2f));
+        if (myScale < 1.5f) myScale = 0.5f;
 
         //Actualizamos la Escala del Proyectil constantemente 
         transform.localScale = new Vector3(myScale, myScale, myScale);
@@ -133,10 +137,15 @@ public class Projectile : MonoBehaviour
         }
 
         //Si hemos impactado el suelo
-        else if (collision.transform.CompareTag("Floor") || collision.transform.CompareTag("Column"))
+        else if (collision.transform.CompareTag("Column"))
         {
             //Desactivamos el Proyectil 
             TurnOffProjectile();
+        }
+        else if (collision.transform.CompareTag("Floor"))
+        {
+            //Desactivamos el Proyectil tras 3 segundos
+            Invoke(nameof(TurnOffProjectile), 5.00f);
         }
     }
 }

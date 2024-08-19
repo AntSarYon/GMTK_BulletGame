@@ -4,7 +4,7 @@ using UnityEngine;
 public class NpcBox9Shot : NpcShootState
 {
     float shootsDelay = 3f;
-    float launchForce = 5f;
+    float launchForce = 15f;
     ShootManager shootManager;
 
     int rows = 3;

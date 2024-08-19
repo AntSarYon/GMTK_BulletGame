@@ -14,7 +14,7 @@ public class NPC_HealthManager : MonoBehaviour
     private bool IsReceivingDamage;
 
     //Vida
-    private float Health = 100;
+    public float Health = 100;
 
     [Header("Velocidad de Decremento de Salud")]
     [SerializeField] private float healthDecreaseSpeed;
