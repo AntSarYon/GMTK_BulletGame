@@ -2350,7 +2350,8 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   minDistanceZ: -12
   maxDistanceZ: 4.27
-  currentEnemyPosition: 0
+  localPos: {fileID: 2125899666}
+  currentPosition: 0
 --- !u!114 &971669156
 MonoBehaviour:
   m_ObjectHideFlags: 0
