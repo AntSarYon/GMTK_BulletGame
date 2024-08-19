@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class NpcBlurController : MonoBehaviour
 {
+    //Flag de Escala normal
+    public bool hasNormalScale;
+
     //Escala del Proyectil
     private float myScale;
 
@@ -29,6 +32,9 @@ public class NpcBlurController : MonoBehaviour
         //Asignamos el BlurMaterial creando una nueva instancia del mismo
         mSpRender.material = new Material(mSpRender.material);
 
+        //La escala incia en 1
+        myScale = 1;
+
         BlurChangeTimer = 0;
     }
 
@@ -44,8 +50,6 @@ public class NpcBlurController : MonoBehaviour
         //Asignamos una Escala principal aleatoria
         principalScale = UnityEngine.Random.Range(0, 3);
 
-        myScale = 1;
-
         //Actualizamos la Escala del Proyectil en base al valor del Enum
         transform.localScale = new Vector3(myScale, myScale, myScale);
     }
@@ -56,9 +60,6 @@ public class NpcBlurController : MonoBehaviour
     {
         //Calculamos el Valor de Blur con la Escala de Foco actual
         blurValue = (Mathf.Abs(newScale - principalScale) / 10);
-
-        //Actualizamos el valor del Blur
-        mSpRender.material.SetFloat("_BlurAmount", blurValue);
 
         //Hacemos que el Sprite se vea grande
         myScale = Mathf.Lerp(1f, 4.00f, (blurValue / 0.2f));
@@ -81,6 +82,13 @@ public class NpcBlurController : MonoBehaviour
 
         //Asignamos la nueva escala como la Actual
         principalScale = newScale;
+
+        //Calculamos el Valor de Blur con la Escala de Foco actual
+        blurValue = (Mathf.Abs(ScalesManager.Instance.scale - principalScale) / 10);
+
+        //Hacemos que el Sprite se vea grande
+        myScale = Mathf.Lerp(1f, 4.00f, (blurValue / 0.2f));
+
     }
 
     //-----------------------------------------------------------------------
@@ -89,6 +97,14 @@ public class NpcBlurController : MonoBehaviour
     {
         //Actualizamos la Escala del Proyectil en base al valor del Enum
         transform.localScale = new Vector3(myScale, myScale, myScale);
+
+        //Actualizamos el valor del Blur
+        mSpRender.material.SetFloat("_BlurAmount", blurValue);
+
+        //Si tenemos la escala normal (1), activamos el flag
+        if (myScale == 1) hasNormalScale = true;
+        //Caso contrario, desactivamos el Flag
+        else hasNormalScale = false;
 
         //Incrementamos el Timer de BlurChange
         BlurChangeTimer += Time.deltaTime;
