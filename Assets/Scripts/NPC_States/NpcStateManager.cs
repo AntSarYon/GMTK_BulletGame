@@ -70,42 +70,42 @@ public class NpcStateManager: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SwitchWalkState(walkingXState);
-            SwitchShootState(idleShoot);
+            SwitchShootState(simpleShoot);
         }
         // orbitated on X
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SwitchWalkState(walkingXYState);
-            SwitchShootState(idleShoot);
+            SwitchShootState(simpleShoot);
         }
         // orbitated on X and move vertical
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             SwitchWalkState(walkingXYZState);
-            SwitchShootState(idleShoot);
+            SwitchShootState(simpleShoot);
         }
         // move on X, Y and Z
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             SwitchWalkState(walkingYZState);
-            SwitchShootState(idleShoot);
+            SwitchShootState(simpleShoot);
         }
         // move on Y and Z
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             SwitchWalkState(walkingZState);
-            SwitchShootState(idleShoot);
+            SwitchShootState(simpleShoot);
         }
         //move on Z
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             SwitchWalkState(walkingX2State);
-            SwitchShootState(idleShoot);
+            SwitchShootState(simpleShoot);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             SwitchWalkState(fastOrbit);
-            SwitchShootState(idleShoot);
+            SwitchShootState(simpleShoot);
         }
         currentWalkingState.UpdateState(this);
         currentShootingState.UpdateState(this);
