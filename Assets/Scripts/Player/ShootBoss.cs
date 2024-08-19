@@ -7,6 +7,9 @@ public class ShootBoss : MonoBehaviour
     [Header("Layer del Boss")]
     [SerializeField] private LayerMask BossLayer;
 
+    //Referencia al Boss
+    private GameObject Boss;
+
     //----------------------------------------------------------
 
     // Update is called once per frame
@@ -15,9 +18,18 @@ public class ShootBoss : MonoBehaviour
 
         RaycastHit BossHit;
         bool wasBossHit = Physics.Raycast(transform.position, transform.forward, out BossHit, 50, BossLayer);
+        
         if (wasBossHit)
         {
-            print("BOSS IMPACTADO");
+            Boss = BossHit.rigidbody.gameObject; 
+            Boss.GetComponent<NPC_HealthManager>().StartRecievingDamage();
+        }
+        else
+        {
+            if (Boss != null)
+            {
+                Boss.GetComponent<NPC_HealthManager>().StopRecievingDamage();
+            }
         }
     }
 
