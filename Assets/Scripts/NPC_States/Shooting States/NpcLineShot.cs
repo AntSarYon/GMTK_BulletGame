@@ -4,8 +4,8 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class NpcLineShot : NpcShootState
 {
-    float shootsDelay = 1.25f;
-    float launchForce = 8f;
+    float shootsDelay = 1.5f;
+    float launchForce = 7f;
     ShootManager shootManager;
 
     int columns = 10;
@@ -52,8 +52,10 @@ public class NpcLineShot : NpcShootState
             Vector3 shootDirection = origin.forward; // Dirección del disparo
             Vector3 shootPosition = origin.position + positionOffset;
 
+            int size = shootManager.SetSize();
+
             // Dispara desde la posición calculada
-            shootManager.origins[0].Shoot(launchForce, positionOffset, positionOffset);
+            shootManager.origins[0].Shoot(launchForce, positionOffset, positionOffset, size);
         }
     }
 }

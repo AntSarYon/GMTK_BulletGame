@@ -4,7 +4,7 @@ using UnityEngine;
 public class NpcBox9Shot : NpcShootState
 {
     float shootsDelay = 1.5f;
-    float launchForce = 10f;
+    float launchForce = 8f;
     ShootManager shootManager;
 
     int rows = 3;
@@ -54,8 +54,10 @@ public class NpcBox9Shot : NpcShootState
                 Vector3 shootDirection = origin.forward; // Dirección del disparo
                 Vector3 shootPosition = origin.position + positionOffset;
 
+                int size = shootManager.SetSize();
+
                 // Dispara desde la posición calculada
-                shootManager.origins[0].Shoot(launchForce, positionOffset, positionOffset);
+                shootManager.origins[0].Shoot(launchForce, positionOffset, positionOffset, size);
             }
         }
     }

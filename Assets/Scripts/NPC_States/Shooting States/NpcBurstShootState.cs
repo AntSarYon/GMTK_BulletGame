@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NpcBurstShootState : NpcShootState
 {
-    float burstDelay = 2f; // Tiempo entre ráfagas
+    float burstDelay = 2.5f; // Tiempo entre ráfagas
     float shootInterval = 0.1f; // Tiempo entre balas en una ráfaga
     int bulletsPerBurst = 15; // Número de balas por ráfaga
     float launchForce = 10f;
@@ -61,6 +61,6 @@ public class NpcBurstShootState : NpcShootState
         int index = Random.Range(0, shootManager.origins.Length);
 
         // Disparar desde el origen, indicando la fuerza del proyectil
-        shootManager.origins[index].Shoot(launchForce);
+        shootManager.origins[index].Shoot(launchForce, shootManager.SetSize());
     }
 }
