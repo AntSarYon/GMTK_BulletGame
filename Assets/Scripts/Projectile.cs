@@ -95,7 +95,7 @@ public class Projectile : MonoBehaviour
     private void LensChangedProDelegate(float LenChange, float newScale)
     {
         //Calculamos el Valor de Blur con la Escala de Foco actual
-        blurValue = Mathf.Abs(newScale - principalScale) / 10;
+        blurValue = (Mathf.Abs(newScale - principalScale) / 10) *2;
 
         //Actualizamos el valor del Blur
         mSpRender.material.SetFloat("_BlurAmount", blurValue);
