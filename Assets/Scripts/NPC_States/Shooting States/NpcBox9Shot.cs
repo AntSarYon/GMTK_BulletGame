@@ -9,7 +9,7 @@ public class NpcBox9Shot : NpcShootState
 
     int rows = 3;
     int columns = 3;
-    float offset = 1f; // Offset entre balas
+    float offset = 2f; // Offset entre balas
 
     public override void EnterState(NpcStateManager npcStateManager)
     {

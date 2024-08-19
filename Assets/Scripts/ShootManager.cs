@@ -32,24 +32,4 @@ public class ShootManager : MonoBehaviour
 
         // Debug.Log($"Hay {origins.Length} or�genes de disparo.");
     }
-
-    //------------------------------------------------------------------
-
-    void Update()
-    {
-        
-    }
-
-    //--------------------------------------------------------------
-
-    private void ShootFromRandomOrigin()
-    {
-        //Obtenemos un Indice aleatorio del Array
-        int index = UnityEngine.Random.Range( 0, origins.Length );
-
-        //Disparamos desde el Origen, indicando la fuerza del proyectil
-        origins[index].Shoot(launchForce);
-    }
-
-    //--------------------------------------------------------------
 }

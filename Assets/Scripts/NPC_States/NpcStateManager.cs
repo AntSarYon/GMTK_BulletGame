@@ -56,6 +56,8 @@ public class NpcStateManager: MonoBehaviour
         superiorLimits += transform.position;
         currentWalkingState = idleWalk;
         currentShootingState = idleShoot;
+        SwitchWalkState(walkingX2State);
+        SwitchShootState(boxShoot);
 
         currentWalkingState.EnterState(this);
     }

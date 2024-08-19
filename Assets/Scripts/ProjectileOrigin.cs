@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class ProjectileOrigin : MonoBehaviour
 {
-    public Transform parentTransform;
+    public Transform fpChild;
+    public GameObject temp;
     void Start()
     {
         //Hacemos que el Origen siempre apunte hacia la cámara
         transform.LookAt(Camera.main.transform);
     }
 
-    private void Update()
-    {
-        transform.rotation = parentTransform.rotation;
-    }
     //-------------------------------------------------
 
     public void Shoot(float launchForce)
@@ -23,8 +20,10 @@ public class ProjectileOrigin : MonoBehaviour
         //Hacemos que el Origen siempre apunte hacia la cámara
         transform.LookAt(Camera.main.transform);
 
+        Quaternion quaternion = transform.rotation;
+
         //Solicitamos un Proyectil al Pool
-        GameObject projectile = ObjectPooling.instance.AskForProjectile(transform.position);
+        GameObject projectile = ObjectPooling.instance.AskForProjectile(fpChild.transform.position);
 
         // Calcular la direcci�n hacia el Player
         Vector3 playerPosition = Camera.main.transform.position;
@@ -44,7 +43,8 @@ public class ProjectileOrigin : MonoBehaviour
         transform.LookAt(Camera.main.transform);
 
         // Solicitar un Proyectil al Pool
-        GameObject projectile = ObjectPooling.instance.AskForProjectile(transform.position + shootOffset);
+        Vector3 firePosition = fpChild.TransformPoint(shootOffset);
+        GameObject projectile = ObjectPooling.instance.AskForProjectile(firePosition);
 
         // Calcular la posición del objetivo con el offset
         Vector3 playerPosition = Camera.main.transform.position + targetOffset;
