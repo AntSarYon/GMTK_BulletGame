@@ -10,16 +10,15 @@ using UnityEngine.UIElements;
 public class Projectile : MonoBehaviour
 {
     //Escala del Proyectil
-    private int myScale;
+    private float myScale;
+
+    //Escala principal del Proyectil (sera de 0 a 2)
+    [SerializeField] private int principalScale;
+
+    [Range(0,0.2f)] [SerializeField] private float blurValue;
 
     [Header("Sprites de Proyectiles")]
     [SerializeField] private Sprite[] arrSprites = new Sprite[5];
-
-    [Header("Material de Blur")]
-    [SerializeField] private Material blurMaterial;
-
-    [Header("Material default")]
-    [SerializeField] private Material defaultMaterial;
 
     //Referencia al Sprite Renderer
     private SpriteRenderer mSpRender;
@@ -31,8 +30,8 @@ public class Projectile : MonoBehaviour
         //Obtenemos referencia
         mSpRender = GetComponent<SpriteRenderer>();
 
-        //Asignamos el BlurMaterial por defecto
-        mSpRender.material = blurMaterial;
+        //Asignamos el BlurMaterial creando una nueva instancia del mismo
+        mSpRender.material = new Material(mSpRender.material);
     }
 
     //---------------------------------------------------------------------------
@@ -44,32 +43,32 @@ public class Projectile : MonoBehaviour
 
         //Asignamos un Sprite aleatorio
         mSpRender.sprite = arrSprites[UnityEngine.Random.Range(0, arrSprites.Length)];
+        //Asignamos una Escala para la Proporción idónea
+        principalScale = Random.Range(0, 3);
 
-        //Obtenemos un indice de Escala aleatorio
-        int randomScaleIndex = Random.Range(1, 2);
-        myScale = randomScaleIndex;
-
-        float defaultScale = myScale / 2.5f;
+        //Iniciamos indicando una Escala de 2 (GRANDE)
+        myScale = 2;
 
         //Actualizamos la Escala del Proyectil en base al valor del Enum
-        transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        transform.localScale = new Vector3(myScale, myScale, myScale);
 
-        //Dependiendo de si la escala del ScalesManager es la misma que la del proyectil,
-        //activamos o desactivmaos su componente de Renderizado.
-        if (ScalesManager.Instance.scale != myScale)
+        //Si la escala del ScalesManager es distinta que la Principal asignada a este proyectil,
+        if (ScalesManager.Instance.scale != principalScale)
         {
-            //Ponemos el Objeto con Blur
-            mSpRender.material = blurMaterial;
+            //Calculamos el Valor de Blur con la Escala de Foco actual
+            blurValue = Mathf.Abs(ScalesManager.Instance.scale - principalScale) / 10;
+
             //Hacemos que el Sprite se vea grande
-            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            myScale = Mathf.Lerp(0.5f, 2.00f, (blurValue/0.2f));
         }
+        //Si la escala del ScalesManager es distinta que la Principal asignada a este proyectil,
         else
         {
             //Hacemos que el objeto se vea nitido
-            mSpRender.material = defaultMaterial;
+            blurValue = 0;
 
             //Restauro la Escala original del Proyectil
-            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            myScale = 0.5f;
         }
     }
 
@@ -93,27 +92,19 @@ public class Projectile : MonoBehaviour
 
     //---------------------------------------------------------------------------
 
-    private void LensChangedProDelegate(float newLensScale)
+    private void LensChangedProDelegate(float LenChange, float newScale)
     {
-        float defaultScale = myScale / 2.5f;
+        //Calculamos el Valor de Blur con la Escala de Foco actual
+        blurValue = (Mathf.Abs(newScale - principalScale) / 10) *2;
 
-        //Dependiendo de si la nueva escala es la misma que la del proyectil,
-        //activamos o desactivmaos su componente de Renderizado.
-        if (Mathf.Abs(ScalesManager.Instance.scale - myScale) > 1f)
-        {
-            //Ponemos el Objeto con Blur
-            mSpRender.material = blurMaterial;
-            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-        }
-        else
-        {
-            //Hacemos que el objeto se vea nitido
-            mSpRender.material = defaultMaterial;
+        //Actualizamos el valor del Blur
+        mSpRender.material.SetFloat("_BlurAmount", blurValue);
 
-            //Restauro la Escala original del Proyectil
-            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        //Hacemos que el Sprite se vea grande
+        myScale = Mathf.Lerp(0.5f, 2.00f, (blurValue / 0.2f));
 
-        }
+        //Actualizamos la Escala del Proyectil constantemente 
+        transform.localScale = new Vector3(myScale, myScale, myScale);
     }
 
     //---------------------------------------------------------------------------
@@ -122,6 +113,12 @@ public class Projectile : MonoBehaviour
     {
         //Hacemos que el Proyectil siempre mire hacia el Player
         transform.LookAt(SimplePlayerController.Instance.transform);
+
+        //Actualizamos la Escala del Proyectil constantemente 
+        //transform.localScale = new Vector3(myScale, myScale, myScale);
+
+        //Actualizamos el valor del Blur
+        //mSpRender.material.SetFloat("BlurAmount", blurValue);
     }
 
     //---------------------------------------------------------------------------

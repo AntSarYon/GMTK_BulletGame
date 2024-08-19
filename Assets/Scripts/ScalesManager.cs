@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 public class ScalesManager : MonoBehaviour
 {
     //Evento Cambio de Escala de Lente
-    public Action<float> OnLensScaleChanged;
+    public Action<float, float> OnLensScaleChanged;
 
     //Variable de Instancia
     public static ScalesManager Instance;
@@ -38,6 +38,6 @@ public class ScalesManager : MonoBehaviour
         scale = Mathf.Clamp(scale + lenChange, 0, 2);
 
         //Disparamos Evento enviando el valor de cambio
-        OnLensScaleChanged?.Invoke(lenChange);
+        OnLensScaleChanged?.Invoke(lenChange, scale);
     }
 }
