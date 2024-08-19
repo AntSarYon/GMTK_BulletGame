@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileOrigin : MonoBehaviour
 {
     public Transform parentTransform;
+
     void Start()
     {
         //Hacemos que el Origen siempre apunte hacia la cámara

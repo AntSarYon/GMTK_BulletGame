@@ -21,7 +21,7 @@ public class GlasesLensController : MonoBehaviour
 
     //---------------------------------------------------------------
 
-    private void LensScaleChangedDelegate(float lencChange)
+    private void LensScaleChangedDelegate(float lencChange, float newScale)
     {
         Camera.main.fieldOfView = Mathf.Clamp(
             Camera.main.fieldOfView + (lencChange * multiplier), 

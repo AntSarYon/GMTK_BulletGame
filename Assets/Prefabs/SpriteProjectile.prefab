@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5408613481254509212}
-  - component: {fileID: 109410790339951106}
   - component: {fileID: 1007286671506503293}
+  - component: {fileID: 109410790339951106}
   - component: {fileID: 699533255394468638}
   - component: {fileID: 2782804052672879034}
   m_Layer: 6
@@ -35,6 +35,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1007286671506503293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856525344750821699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790de5815bd24ae499fa3366a6100e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  principalScale: 0
+  blurValue: 0
+  arrSprites:
+  - {fileID: 21300000, guid: 8ec8653d656e4c444a23e36b4661597d, type: 3}
+  - {fileID: 21300000, guid: 81d40c2a8fcf14f4da9df43c80d95cc9, type: 3}
+  - {fileID: 21300000, guid: 2753fbe79c1c2d94cbd1b5b3ef913e57, type: 3}
+  - {fileID: 21300000, guid: 24e9760668084784cba76e5d80f9c2ac, type: 3}
+  - {fileID: 21300000, guid: 3f6374a34dbbb2f40b2c0812182745bc, type: 3}
 --- !u!212 &109410790339951106
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -87,26 +107,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1007286671506503293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856525344750821699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790de5815bd24ae499fa3366a6100e5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrSprites:
-  - {fileID: 21300000, guid: 8ec8653d656e4c444a23e36b4661597d, type: 3}
-  - {fileID: 21300000, guid: 81d40c2a8fcf14f4da9df43c80d95cc9, type: 3}
-  - {fileID: 21300000, guid: 2753fbe79c1c2d94cbd1b5b3ef913e57, type: 3}
-  - {fileID: 21300000, guid: 24e9760668084784cba76e5d80f9c2ac, type: 3}
-  - {fileID: 21300000, guid: 3f6374a34dbbb2f40b2c0812182745bc, type: 3}
-  blurMaterial: {fileID: 2100000, guid: 8a39c60e2beed784f9c4b91c808198d8, type: 2}
-  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!65 &699533255394468638
 BoxCollider:
   m_ObjectHideFlags: 0
