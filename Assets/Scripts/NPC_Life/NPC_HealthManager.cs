@@ -63,7 +63,7 @@ public class NPC_HealthManager : MonoBehaviour
             Health -= Time.deltaTime * healthDecreaseSpeed;
 
             //Actualizamos el Valor del Slider
-            mHealthSlider.value = Health;
+            // mHealthSlider.value = Health;
 
             if (Health <= 0)
             {
@@ -71,7 +71,7 @@ public class NPC_HealthManager : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Vida restante: {Health}");
+                // Debug.Log($"Vida restante: {Health}");
             }
         }
         

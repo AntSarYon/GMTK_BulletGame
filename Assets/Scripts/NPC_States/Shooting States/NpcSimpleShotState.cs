@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class NpcSimpleShotState : NpcShootState
 {
-    float shootsDelay = 1.5f;
-    float launchForce = 10f;
+    float shootsDelay = 3f;
+    float launchForce = 5f;
     ShootManager shootManager;
 
     public override void EnterState(NpcStateManager npcStateManager)
@@ -37,7 +37,9 @@ public class NpcSimpleShotState : NpcShootState
         //Obtenemos un Indice aleatorio del Array
         int index = Random.Range(0, shootManager.origins.Length);
 
+        int size = shootManager.SetSize();
+
         //Disparamos desde el Origen, indicando la fuerza del proyectil
-        shootManager.origins[index].Shoot(launchForce);
+        shootManager.origins[index].Shoot(launchForce, size);
     }
 }

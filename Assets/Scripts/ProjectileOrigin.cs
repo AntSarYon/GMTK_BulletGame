@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class ProjectileOrigin : MonoBehaviour
@@ -14,7 +15,7 @@ public class ProjectileOrigin : MonoBehaviour
 
     //-------------------------------------------------
 
-    public void Shoot(float launchForce)
+    public void Shoot(float launchForce, int size)
     {
 
         //Hacemos que el Origen siempre apunte hacia la cámara
@@ -29,6 +30,8 @@ public class ProjectileOrigin : MonoBehaviour
         Vector3 playerPosition = Camera.main.transform.position;
         Vector3 directionToPlayer = (playerPosition - transform.position).normalized;
 
+        projectile.GetComponent<Projectile>().principalScale = size;
+
         // Agregar fuerza al proyectil en la direcci�n del Player
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         if (rb != null)
@@ -37,7 +40,7 @@ public class ProjectileOrigin : MonoBehaviour
             Debug.LogError("El proyectil no tiene un componente Rigidbody.");
     }
 
-    public void Shoot(float launchForce, Vector3 shootOffset, Vector3 targetOffset)
+    public void Shoot(float launchForce, Vector3 shootOffset, Vector3 targetOffset, int size)
     {
         // Hacemos que el Origen siempre apunte hacia la cámara
         transform.LookAt(Camera.main.transform);
@@ -51,6 +54,8 @@ public class ProjectileOrigin : MonoBehaviour
 
         // Calcular la dirección hacia el objetivo ajustado
         Vector3 directionToPlayer = (playerPosition - (transform.position + shootOffset)).normalized;
+
+        projectile.GetComponent<Projectile>().principalScale = size;
 
         // Agregar fuerza al proyectil en la dirección del objetivo
         Rigidbody rb = projectile.GetComponent<Rigidbody>();

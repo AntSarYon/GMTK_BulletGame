@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class NpcBox9Shot : NpcShootState
 {
-    float shootsDelay = 1.5f;
-    float launchForce = 10f;
+    float shootsDelay = 3f;
+    float launchForce = 5f;
     ShootManager shootManager;
 
     int rows = 3;
@@ -42,6 +42,8 @@ public class NpcBox9Shot : NpcShootState
         // Obtener el origen para disparar
         Transform origin = shootManager.origins[0].transform; // Asumimos que solo hay un origen y tomamos el primer índice
 
+        int size = shootManager.SetSize();
+
         // Disparar en una formación de cuadrado
         for (int row = 0; row < rows; row++)
         {
@@ -55,7 +57,7 @@ public class NpcBox9Shot : NpcShootState
                 Vector3 shootPosition = origin.position + positionOffset;
 
                 // Dispara desde la posición calculada
-                shootManager.origins[0].Shoot(launchForce, positionOffset, positionOffset);
+                shootManager.origins[0].Shoot(launchForce, positionOffset, positionOffset, size);
             }
         }
     }

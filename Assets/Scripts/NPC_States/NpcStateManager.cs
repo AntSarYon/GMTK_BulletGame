@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public enum EnemyPosition
 {
@@ -46,7 +43,7 @@ public class NpcStateManager: MonoBehaviour
     public float maxDistanceZ;
     private float loadZ = 0;
     public Transform localPos;
-    private int rangeTeleportZ = 75;
+    public int rangeTeleportZ = 75;
 
     public EnemyPosition currentPosition;
 
@@ -57,8 +54,6 @@ public class NpcStateManager: MonoBehaviour
         superiorLimits += transform.position;
         currentWalkingState = idleWalk;
         currentShootingState = idleShoot;
-        SwitchWalkState(walkingX2State);
-        SwitchShootState(boxShoot);
 
         currentWalkingState.EnterState(this);
     }
@@ -75,36 +70,36 @@ public class NpcStateManager: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SwitchWalkState(walkingXState);
-            SwitchShootState(lineShoot);
+            SwitchShootState(simpleShoot);
         }
         // orbitated on X
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SwitchWalkState(walkingX2State);
-            SwitchShootState(boxShoot);
+            SwitchWalkState(walkingXState);
+            SwitchShootState(burstShoot);
         }
         // orbitated on X and move vertical
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            SwitchWalkState(walkingXYState);
-            SwitchShootState(simpleShoot);
+            SwitchWalkState(walkingXState);
+            SwitchShootState(boxShoot);
         }
         // move on X, Y and Z
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            SwitchWalkState(walkingXYZState);
-            SwitchShootState(simpleShoot);
+            SwitchWalkState(walkingXState);
+            SwitchShootState(lineShoot);
         }
         // move on Y and Z
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            SwitchWalkState(walkingYZState);
+            SwitchWalkState(walkingXState);
             SwitchShootState(simpleShoot);
         }
         //move on Z
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            SwitchWalkState(walkingZState);
+            SwitchWalkState(walkingXState);
             SwitchShootState(simpleShoot);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
@@ -122,8 +117,8 @@ public class NpcStateManager: MonoBehaviour
         NpcWalkState previousState = state;
         currentWalkingState = state;
         initialPosition = transform.position;
-        if (currentWalkingState != fastOrbit || previousState != fastOrbit)
-            GetRandomEnemyPosition();
+        // if (currentWalkingState != fastOrbit || previousState != fastOrbit)
+            // GetRandomEnemyPosition();
         state.EnterState(this);
     }
 
