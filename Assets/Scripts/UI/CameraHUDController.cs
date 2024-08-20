@@ -12,10 +12,15 @@ public class CameraHUDController : MonoBehaviour
     private float minScale;
     private float maxScale;
 
+    [HideInInspector] public float interpolationValue;
+
+    private float currentScale;
+
     //--------------------------------------------
 
     void Awake()
     {
+        currentScale = 1;
 
         HUDTransform = GetComponent<RectTransform>();
 
@@ -24,9 +29,15 @@ public class CameraHUDController : MonoBehaviour
         maxScale = 1.0f;
     }
 
+    //--------------------------------------------
+
     // Update is called once per frame
     void Update()
     {
-        //HUDTransform.localScale = Vector3.Lerp()
+        //Actualizamos la escala empleando una inteprolacion
+        currentScale = Mathf.Lerp(minScale, maxScale, interpolationValue);
+
+        //Actualizamos constantemente el Scale del HUD 
+        HUDTransform.localScale = new Vector3(currentScale, currentScale, currentScale);
     }
 }

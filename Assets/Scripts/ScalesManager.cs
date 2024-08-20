@@ -40,6 +40,9 @@ public class ScalesManager : MonoBehaviour
         //Modificamos la escala del Lente, limitando su posible valor, de 0 a 2
         scale = Mathf.Clamp(scale + lenChange, 0, 2);
 
+        //Actualizamos el valor d eintyerpolacion para le HUD de la camara
+        camHUD.interpolationValue = scale / 2;
+
         //Disparamos Evento enviando el valor de cambio
         OnLensScaleChanged?.Invoke(lenChange, scale);
     }
