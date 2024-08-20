@@ -5,7 +5,8 @@ public class NpcWalkYZState : NpcWalkState
     private float startY;
     private float offSetY = 2;
     private float startZ;
-    public float range = 2f;
+    public float rangeY = 2f;
+    public float rangeZ = 1f;
 
     public override void EnterState(NpcStateManager npcStateManager)
     {
@@ -15,8 +16,8 @@ public class NpcWalkYZState : NpcWalkState
 
     public override void UpdateState(NpcStateManager npcStateManager)
     {
-        float newY = startY + Mathf.PingPong(Time.time * npcStateManager.movementSpeed, range * 2) - range;
-        float newZ = startZ + Mathf.PingPong(Time.time * npcStateManager.movementSpeed, range * 2) - range;
+        float newY = startY + Mathf.PingPong(Time.time * npcStateManager.movementSpeed, rangeY * 2) - rangeY;
+        float newZ = startZ + Mathf.PingPong(Time.time * npcStateManager.movementSpeed, rangeZ * 2) - rangeZ;
         npcStateManager.transform.position = new Vector3(npcStateManager.transform.position.x, newY + offSetY, newZ);
     }
 
