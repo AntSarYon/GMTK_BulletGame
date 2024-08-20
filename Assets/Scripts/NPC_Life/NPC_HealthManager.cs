@@ -11,7 +11,7 @@ public class NPC_HealthManager : MonoBehaviour
     [Header("Slider de Vida")]
     [SerializeField] private Slider mHealthSlider;
 
-    private bool IsReceivingDamage;
+    public bool IsReceivingDamage;
 
     //Vida
     public float Health = 100;

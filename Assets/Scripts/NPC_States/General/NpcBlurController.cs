@@ -63,11 +63,17 @@ public class NpcBlurController : MonoBehaviour
     {
         //Calculamos el Valor de Blur con la Escala de Foco actual
         blurValue = (Mathf.Abs(newScale - principalScale) / 10);
-        if (blurValue < 0.005f) blurValue = 0;
 
         //Modificamos el valor de la Escala
         myScale = Mathf.Lerp(1f, 4.00f, (blurValue / 0.2f));
-        if (myScale < 1.2f) myScale = 1.00f;
+        
+        //Controlamos el Treehold
+        if (myScale < 1.2f)
+        {
+            myScale = 1.00f;
+            blurValue = 0;
+        }
+
 
         //Controlamos el estado de Flag de "tamaño normal"
         //Si tenemos la escala normal (1), activamos el flag
