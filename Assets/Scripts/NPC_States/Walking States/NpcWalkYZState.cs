@@ -3,6 +3,7 @@ using UnityEngine;
 public class NpcWalkYZState : NpcWalkState
 {
     private float startY;
+    private float offSetY = 2;
     private float startZ;
     public float range = 2f;
 
@@ -16,7 +17,7 @@ public class NpcWalkYZState : NpcWalkState
     {
         float newY = startY + Mathf.PingPong(Time.time * npcStateManager.movementSpeed, range * 2) - range;
         float newZ = startZ + Mathf.PingPong(Time.time * npcStateManager.movementSpeed, range * 2) - range;
-        npcStateManager.transform.position = new Vector3(npcStateManager.transform.position.x, newY, newZ);
+        npcStateManager.transform.position = new Vector3(npcStateManager.transform.position.x, newY + offSetY, newZ);
     }
 
     public override void EndState(NpcStateManager npcStateManager)
