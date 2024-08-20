@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class NpcWalkXYZState : NpcWalkState
 {
-    private float minX = -7, minY = -7, minZ = -7;
-    private float maxX = 7, maxY = 7, maxZ = 7;
+    private float minX = -6, minY = -6, minZ = -6;
+    private float maxX = 6, maxY = 6, maxZ = 6;
     private float offSet = 2;
-    private float offSetY = 2;
+    private float offSetY = 3;
     private float offSetZ = 2;
     private Vector3 initialPosition;
     private Vector3 targetPosition;

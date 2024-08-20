@@ -2457,7 +2457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc208edce577eb42a3e3c88cf6c115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  movementSpeed: 6
   rotationSpeed: 20
   speedDir: 1
   shootManager: {fileID: 795951239}
@@ -2500,7 +2500,7 @@ Transform:
   m_GameObject: {fileID: 795951230}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10.1, z: 20}
+  m_LocalPosition: {x: 0, y: 8.5, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

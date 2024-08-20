@@ -62,6 +62,8 @@ public class NpcStateManager: MonoBehaviour
     private float timer = 0f;
     private float interval = 15f;
 
+    private float originalY;
+
     /*
      * Fase 1: speeds de 8, 15
      * Fase 2: speeds de 10, 20
@@ -75,6 +77,7 @@ public class NpcStateManager: MonoBehaviour
         superiorLimits += transform.position;
         currentWalkingState = idleWalk;
         currentShootingState = idleShoot;
+        originalY = transform.position.y;
 
         currentWalkingState.EnterState(this);
         currentShootingState.EnterState(this);
@@ -168,7 +171,7 @@ public class NpcStateManager: MonoBehaviour
         NpcWalkState previousState = state;
         currentWalkingState = state;
         initialPosition = transform.position;
-        transform.position = new Vector3(initialPosition.x, 10.5f, initialPosition.z);
+        transform.position = new Vector3(initialPosition.x, originalY, initialPosition.z);
         if (currentWalkingState != fastOrbit || previousState != fastOrbit)
             GetRandomEnemyPosition();
         if (currentPhase != EnemyPhase.Phase1)
@@ -365,7 +368,6 @@ public class NpcStateManager: MonoBehaviour
 
     private void StartingStates()
     {
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         SwitchWalkState(walkingXState);
         SwitchShootState(simpleShoot);
     }
