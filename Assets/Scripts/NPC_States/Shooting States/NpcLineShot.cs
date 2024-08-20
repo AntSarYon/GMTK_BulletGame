@@ -4,12 +4,13 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class NpcLineShot : NpcShootState
 {
-    float shootsDelay = 3f;
+    float shootsDelay = 1f;
     float launchForce = 15f;
     ShootManager shootManager;
 
     int columns = 10;
     float offset = 3.5f; // Offset entre balas
+    float count = 0;
 
     public override void EnterState(NpcStateManager npcStateManager)
     {
@@ -25,10 +26,23 @@ public class NpcLineShot : NpcShootState
         if (shootManager.shootTimer >= shootsDelay)
         {
             //Disparamos de un Origen random
-            ShootBox(npcStateManager);
+            ShootLine(npcStateManager);
+            count++;
 
             //Retornamos el Timer a 0
             npcStateManager.shootManager.shootTimer = 0;
+
+            if (npcStateManager.currentPhase == EnemyPhase.Phase2)
+            {
+                npcStateManager.GetRandomWalkState(EnemyPhase.Phase2);
+                npcStateManager.SwitchShootState(npcStateManager.simpleShoot);
+            }
+
+            if (npcStateManager.currentPhase == EnemyPhase.Phase3 && count >= 3)
+            {
+                npcStateManager.GetRandomWalkState(EnemyPhase.Phase3);
+                npcStateManager.GetRandomShootState(EnemyPhase.Phase3);
+            }
         }
     }
 
@@ -37,7 +51,7 @@ public class NpcLineShot : NpcShootState
 
     }
 
-    private void ShootBox(NpcStateManager npcStateManager)
+    private void ShootLine(NpcStateManager npcStateManager)
     {
         // Obtener el origen para disparar
         Transform origin = shootManager.origins[0].transform; // Asumimos que solo hay un origen y tomamos el primer índice

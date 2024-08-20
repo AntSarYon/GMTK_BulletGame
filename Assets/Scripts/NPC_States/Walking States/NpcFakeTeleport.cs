@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class NpcFastOrbitX : NpcWalkState
+public class NpcFakeTeleport : NpcWalkState
 {
-    float minSpeed = 150f;
-    float maxSpeed = 200f;
-    float timer = 0f; // Temporizador
+    float speed = 2500f;
+    float timer = 0f;
+    float min = 0.1f;
+    float max = 0.25f;
 
     public override void EnterState(NpcStateManager npcStateManager)
     {
@@ -14,15 +15,13 @@ public class NpcFastOrbitX : NpcWalkState
 
     public override void UpdateState(NpcStateManager npcStateManager)
     {
-        // Realiza la rotación alrededor del target
-        float speed = Random.Range(minSpeed, maxSpeed);
         npcStateManager.transform.RotateAround(npcStateManager.target.gameObject.transform.position, npcStateManager.speedDir * Vector3.up, speed * Time.deltaTime);
 
         // Incrementa el temporizador con el tiempo transcurrido
         timer += Time.deltaTime;
 
         // Verifica si han pasado 1.5 segundos
-        if (timer >= 0.75f)
+        if (timer >= Random.Range(min, max))
         {
             // Opcional: Reinicia el temporizador si quieres que el mensaje se imprima cada 1.5 segundos.
             npcStateManager.SwitchWalkState(npcStateManager.walkingXState);

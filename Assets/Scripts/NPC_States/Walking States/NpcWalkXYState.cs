@@ -20,7 +20,7 @@ public class NpcWalkXYState : NpcWalkState
     public override void UpdateState(NpcStateManager npcStateManager)
     {
         // Mover el objeto hacia la posición objetivo en Y
-        npcStateManager.transform.position = Vector3.MoveTowards(npcStateManager.transform.position, new Vector3(npcStateManager.transform.position.x, targetY, npcStateManager.transform.position.z), npcStateManager.movementSpeed * Time.deltaTime);
+        npcStateManager.transform.position = Vector3.MoveTowards(npcStateManager.transform.position, new Vector3(npcStateManager.transform.position.x, targetY, npcStateManager.transform.position.z),npcStateManager.movementSpeed * Time.deltaTime);
 
         // Si el objeto ha llegado al objetivo, seleccionar un nuevo objetivo
         if (Mathf.Approximately(npcStateManager.transform.position.y, targetY))
@@ -36,7 +36,7 @@ public class NpcWalkXYState : NpcWalkState
             targetY = Random.Range(minY, maxY);
             elapsedTime = 0f;
         }
-        npcStateManager.transform.RotateAround(npcStateManager.target.gameObject.transform.position, Vector3.up, npcStateManager.rotationSpeed * Time.deltaTime);
+        npcStateManager.transform.RotateAround(npcStateManager.target.gameObject.transform.position, Vector3.up, npcStateManager.speedDir * npcStateManager.rotationSpeed * Time.deltaTime);
     }
 
     public override void EndState(NpcStateManager npcStateManager)

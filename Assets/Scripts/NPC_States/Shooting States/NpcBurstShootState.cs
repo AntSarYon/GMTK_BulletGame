@@ -4,7 +4,7 @@ public class NpcBurstShootState : NpcShootState
 {
     float burstDelay = 2.5f; // Tiempo entre ráfagas
     float shootInterval = 0.1f; // Tiempo entre balas en una ráfaga
-    int bulletsPerBurst = 10; // Número de balas por ráfaga
+    int bulletsPerBurst = 5; // Número de balas por ráfaga
     float launchForce = 15f;
     ShootManager shootManager;
     int size;
@@ -38,6 +38,17 @@ public class NpcBurstShootState : NpcShootState
                 {
                     isBursting = false;
                     bulletsPerBurst = 15; // Restablecer el conteo de balas para la próxima ráfaga
+
+                    if (npcStateManager.currentPhase == EnemyPhase.Phase1 || npcStateManager.currentPhase == EnemyPhase.Phase2)
+                    {
+                        npcStateManager.GetRandomWalkState(npcStateManager.currentPhase);
+                        npcStateManager.SwitchShootState(npcStateManager.simpleShoot);
+                    }
+                    if (npcStateManager.currentPhase == EnemyPhase.Phase3)
+                    {
+                        npcStateManager.GetRandomWalkState(EnemyPhase.Phase3);
+                        npcStateManager.GetRandomShootState(EnemyPhase.Phase3);
+                    }
                 }
             }
         }

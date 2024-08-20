@@ -8,6 +8,12 @@ public enum EnemyPosition
     Far
 }
 
+public enum EnemyPhase
+{
+    Phase1,
+    Phase2,
+    Phase3
+}
 
 public class NpcStateManager: MonoBehaviour
 {
@@ -20,18 +26,22 @@ public class NpcStateManager: MonoBehaviour
     public NpcWalkState walkingYZState = new NpcWalkYZState();
     public NpcWalkState walkingZState = new NpcWalkZState();
     public NpcWalkState walkingX2State = new NpcWalkX2State();
+    public NpcWalkState simpleOrbit = new NpcSimpleOrbitX();
     public NpcWalkState fastOrbit = new NpcFastOrbitX();
+    public NpcWalkState fakeTeleport = new NpcFakeTeleport();
 
     // SHOOT STATES
     public NpcShootState currentShootingState;
     public NpcShootState idleShoot = new NpcIdleShot();
     public NpcShootState simpleShoot = new NpcSimpleShotState();
     public NpcShootState burstShoot = new NpcBurstShootState();
-    public NpcShootState boxShoot = new NpcBox9Shot();
+    public NpcShootState boxShoot3x3 = new NpcBox9Shot();
     public NpcShootState lineShoot = new NpcLineShot();
+    public NpcShootState boxShootMax = new NpcBox5x5Shot();
 
     public float movementSpeed;
     public float rotationSpeed;
+    public int speedDir = 1;
     public ShootManager shootManager;
     public GameObject target;
 
@@ -46,6 +56,14 @@ public class NpcStateManager: MonoBehaviour
     public int rangeTeleportZ = 75;
 
     public EnemyPosition currentPosition;
+    public EnemyPhase currentPhase = EnemyPhase.Phase1;
+    public bool _isDevMode;
+
+    /*
+     * Fase 1: speeds de 8, 15
+     * Fase 2: speeds de 10, 20
+     */
+
 
     private void Start()
     {
@@ -60,55 +78,58 @@ public class NpcStateManager: MonoBehaviour
 
     private void Update()
     {
-        // idle
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (_isDevMode == true)
         {
-            SwitchWalkState(idleWalk);
-            SwitchShootState(idleShoot);
+            // idle
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                SwitchWalkState(idleWalk);
+                SwitchShootState(idleShoot);
+            }
+            // move horizontal
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SwitchWalkState(walkingXState);
+                SwitchShootState(simpleShoot);
+            }
+            // orbitated on X
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SwitchWalkState(simpleOrbit);
+                SwitchShootState(simpleShoot);
+            }
+            // orbitated on X and move vertical
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                SwitchWalkState(walkingXYState);
+                SwitchShootState(idleShoot);
+            }
+            // move on X, Y and Z
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                SwitchWalkState(fakeTeleport);
+                SwitchShootState(idleShoot);
+            }
+            // move on Y and Z
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                SwitchWalkState(idleWalk);
+                SwitchShootState(boxShoot3x3);
+            }
+            //move on Z
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                SwitchWalkState(idleWalk);
+                SwitchShootState(boxShootMax);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                SwitchWalkState(idleWalk);
+                SwitchShootState(lineShoot);
+            }
+            currentWalkingState.UpdateState(this);
+            currentShootingState.UpdateState(this);
         }
-        // move horizontal
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwitchWalkState(walkingXState);
-            SwitchShootState(simpleShoot);
-        }
-        // orbitated on X
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SwitchWalkState(walkingXYState);
-            SwitchShootState(burstShoot);
-        }
-        // orbitated on X and move vertical
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SwitchWalkState(walkingXYZState);
-            SwitchShootState(boxShoot);
-        }
-        // move on X, Y and Z
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            SwitchWalkState(walkingYZState);
-            SwitchShootState(simpleShoot);
-        }
-        // move on Y and Z
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            SwitchWalkState(walkingZState);
-            SwitchShootState(burstShoot);
-        }
-        //move on Z
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            SwitchWalkState(walkingX2State);
-            SwitchShootState(simpleShoot);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            SwitchWalkState(fastOrbit);
-            SwitchShootState(simpleShoot);
-        }
-        currentWalkingState.UpdateState(this);
-        currentShootingState.UpdateState(this);
     }
 
     public void SwitchWalkState(NpcWalkState state)
@@ -119,6 +140,13 @@ public class NpcStateManager: MonoBehaviour
         initialPosition = transform.position;
         if (currentWalkingState != fastOrbit || previousState != fastOrbit)
             GetRandomEnemyPosition();
+        if (currentPhase != EnemyPhase.Phase1)
+        {
+            if (UnityEngine.Random.Range(0f, 1f) < 0.5f)
+            {
+                speedDir = speedDir * -1;
+            }
+        }
         state.EnterState(this);
     }
 
@@ -167,8 +195,6 @@ public class NpcStateManager: MonoBehaviour
             
         }
 
-        print(transform.position);
-
         initialPosition = transform.position;
     }
 
@@ -191,10 +217,114 @@ public class NpcStateManager: MonoBehaviour
         }
     }
 
-
-    public void OrbitAttack()
+    public void GetRandomWalkState(EnemyPhase phase)
     {
-        SwitchWalkState(fastOrbit);
-        SwitchShootState(simpleShoot);
+        if (phase == EnemyPhase.Phase1)
+        {
+            // Crear un array con todos los estados
+            NpcWalkState[] walkStates = {
+            idleWalk,
+            walkingXState,
+            walkingXYState,
+            simpleOrbit,
+        };
+
+            // Seleccionar un índice aleatorio
+            int randomIndex = UnityEngine.Random.Range(0, walkStates.Length);
+
+            // Retornar el estado correspondiente
+            SwitchWalkState(walkStates[randomIndex]);
+        }
+        if (phase == EnemyPhase.Phase2)
+        {
+            // Crear un array con todos los estados
+            NpcWalkState[] walkStates = {
+            walkingXState,
+            walkingXYState,
+            walkingYZState,
+            simpleOrbit,
+            fastOrbit,
+            fakeTeleport
+        };
+
+            // Seleccionar un índice aleatorio
+            int randomIndex = UnityEngine.Random.Range(0, walkStates.Length);
+
+            // Retornar el estado correspondiente
+            SwitchWalkState(walkStates[randomIndex]);
+        }
+        if (phase == EnemyPhase.Phase3)
+        {
+            // Crear un array con todos los estados
+            NpcWalkState[] walkStates = {
+            walkingXState,
+            walkingXYState,
+            walkingXYZState,
+            walkingYZState,
+            walkingZState,
+            simpleOrbit,
+            fastOrbit,
+            fakeTeleport
+        };
+
+            // Seleccionar un índice aleatorio
+            int randomIndex = UnityEngine.Random.Range(0, walkStates.Length);
+
+            // Retornar el estado correspondiente
+            SwitchWalkState(walkStates[randomIndex]);
+        }
+    }
+
+    public void GetRandomShootState(EnemyPhase phase)
+    {
+        if (phase == EnemyPhase.Phase1)
+        {
+            // Crear un array con todos los estados de disparo
+            NpcShootState[] shootStates = {
+            simpleShoot,
+            simpleShoot,
+            simpleShoot,
+            simpleShoot,
+            burstShoot,
+        };
+
+            // Seleccionar un índice aleatorio
+            int randomIndex = UnityEngine.Random.Range(0, shootStates.Length);
+
+            // Retornar el estado correspondiente
+            SwitchShootState(shootStates[randomIndex]);
+        }
+        if (phase == EnemyPhase.Phase2)
+        {
+            // Crear un array con todos los estados de disparo
+            NpcShootState[] shootStates = {
+            burstShoot,
+            lineShoot,
+            boxShoot3x3
+        };
+
+            // Seleccionar un índice aleatorio
+            int randomIndex = UnityEngine.Random.Range(0, shootStates.Length);
+
+            // Retornar el estado correspondiente
+            SwitchShootState(shootStates[randomIndex]);
+        }
+        if (phase == EnemyPhase.Phase3)
+        {
+            // Crear un array con todos los estados de disparo
+            NpcShootState[] shootStates = {
+            simpleShoot,
+            simpleShoot,
+            burstShoot,
+            lineShoot,
+            boxShootMax,
+        };
+
+            // Seleccionar un índice aleatorio
+            int randomIndex = UnityEngine.Random.Range(0, shootStates.Length);
+
+            // Retornar el estado correspondiente
+            SwitchShootState(shootStates[randomIndex]);
+        }
     }
 }
