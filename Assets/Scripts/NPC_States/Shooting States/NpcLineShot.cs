@@ -8,8 +8,8 @@ public class NpcLineShot : NpcShootState
     float launchForce = 15f;
     ShootManager shootManager;
 
-    int columns = 10;
-    float offset = 3.5f; // Offset entre balas
+    int columns = 12;
+    float offset = 3f; // Offset entre balas
     float count = 0;
 
     public override void EnterState(NpcStateManager npcStateManager)

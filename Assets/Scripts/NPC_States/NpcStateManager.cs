@@ -59,6 +59,9 @@ public class NpcStateManager: MonoBehaviour
     public EnemyPhase currentPhase = EnemyPhase.Phase1;
     public bool _isDevMode;
 
+    private float timer = 0f;
+    private float interval = 15f;
+
     /*
      * Fase 1: speeds de 8, 15
      * Fase 2: speeds de 10, 20
@@ -78,6 +81,31 @@ public class NpcStateManager: MonoBehaviour
 
     private void Update()
     {
+        // Establece el intervalo según la fase actual
+        if (_isDevMode == false)
+        {
+            switch (currentPhase)
+            {
+                case EnemyPhase.Phase1:
+                    interval = 15f;
+                    break;
+                case EnemyPhase.Phase2:
+                    interval = 13f;
+                    break;
+                case EnemyPhase.Phase3:
+                    interval = 10f;
+                    break;
+            }
+            timer += Time.deltaTime;
+            if (timer >= interval)
+            {
+                SwitchWalkState(fakeTeleport);
+                SwitchShootState(simpleShoot);
+                timer = 0f;
+            }
+        }
+        
+
         if (_isDevMode == true)
         {
             // idle
@@ -89,32 +117,32 @@ public class NpcStateManager: MonoBehaviour
             // move horizontal
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                SwitchWalkState(walkingXState);
+                SwitchWalkState(idleWalk);
                 SwitchShootState(simpleShoot);
             }
             // orbitated on X
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                SwitchWalkState(simpleOrbit);
-                SwitchShootState(simpleShoot);
+                SwitchWalkState(idleWalk);
+                SwitchShootState(burstShoot);
             }
             // orbitated on X and move vertical
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                SwitchWalkState(walkingXYState);
-                SwitchShootState(idleShoot);
+                SwitchWalkState(idleWalk);
+                SwitchShootState(boxShoot3x3);
             }
             // move on X, Y and Z
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                SwitchWalkState(fakeTeleport);
-                SwitchShootState(idleShoot);
+                SwitchWalkState(idleWalk);
+                SwitchShootState(lineShoot);
             }
             // move on Y and Z
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 SwitchWalkState(idleWalk);
-                SwitchShootState(boxShoot3x3);
+                SwitchShootState(boxShootMax);
             }
             //move on Z
             if (Input.GetKeyDown(KeyCode.Alpha6))
@@ -138,6 +166,7 @@ public class NpcStateManager: MonoBehaviour
         NpcWalkState previousState = state;
         currentWalkingState = state;
         initialPosition = transform.position;
+        transform.position = new Vector3(initialPosition.x, 10.5f, initialPosition.z);
         if (currentWalkingState != fastOrbit || previousState != fastOrbit)
             GetRandomEnemyPosition();
         if (currentPhase != EnemyPhase.Phase1)
@@ -283,8 +312,6 @@ public class NpcStateManager: MonoBehaviour
             NpcShootState[] shootStates = {
             simpleShoot,
             simpleShoot,
-            simpleShoot,
-            simpleShoot,
             burstShoot,
         };
 
@@ -314,10 +341,9 @@ public class NpcStateManager: MonoBehaviour
             // Crear un array con todos los estados de disparo
             NpcShootState[] shootStates = {
             simpleShoot,
-            simpleShoot,
-            burstShoot,
             lineShoot,
             boxShootMax,
+            burstShoot,
         };
 
             // Seleccionar un índice aleatorio

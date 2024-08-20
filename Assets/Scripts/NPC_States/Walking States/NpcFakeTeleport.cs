@@ -25,7 +25,7 @@ public class NpcFakeTeleport : NpcWalkState
         {
             // Opcional: Reinicia el temporizador si quieres que el mensaje se imprima cada 1.5 segundos.
             npcStateManager.SwitchWalkState(npcStateManager.walkingXState);
-            npcStateManager.SwitchShootState(npcStateManager.burstShoot);
+            npcStateManager.SwitchShootState(npcStateManager.simpleShoot);
         }
     }
 

@@ -14,7 +14,7 @@ public class NpcSimpleShotState : NpcShootState
         if (npcStateManager.currentPhase == EnemyPhase.Phase2)
             shootsDelay = 2f;
         if (npcStateManager.currentPhase == EnemyPhase.Phase3)
-            shootsDelay = 1.65f;
+            shootsDelay = 1.55f;
         shootManager = npcStateManager.shootManager;
     }
 
@@ -39,6 +39,7 @@ public class NpcSimpleShotState : NpcShootState
             // 50% de probabilidad de cambiar de estado
             if (Random.Range(0f, 1f) < 0.5f)
             {
+                Debug.Log("PAIN");
                 npcStateManager.SwitchWalkState(npcStateManager.idleWalk);
                 npcStateManager.SwitchShootState(npcStateManager.burstShoot);
             }
@@ -47,7 +48,7 @@ public class NpcSimpleShotState : NpcShootState
         }
         if (bulletsCount >= 10 && npcStateManager.currentPhase == EnemyPhase.Phase2)
         {
-            // 50% de probabilidad de cambiar de estado
+            // 80% de probabilidad de cambiar de estado
             if (Random.Range(0f, 1f) < 0.8f)
             {
                 npcStateManager.GetRandomWalkState(EnemyPhase.Phase2);
@@ -58,12 +59,8 @@ public class NpcSimpleShotState : NpcShootState
         }
         if (bulletsCount >= 5 && npcStateManager.currentPhase == EnemyPhase.Phase3)
         {
-            // 50% de probabilidad de cambiar de estado
-            if (Random.Range(0f, 1f) < 0.8f)
-            {
-                npcStateManager.GetRandomWalkState(EnemyPhase.Phase3);
-                npcStateManager.GetRandomShootState(EnemyPhase.Phase3);
-            }
+            npcStateManager.GetRandomWalkState(EnemyPhase.Phase3);
+            npcStateManager.GetRandomShootState(EnemyPhase.Phase3);
 
             bulletsCount = 0;
         }
