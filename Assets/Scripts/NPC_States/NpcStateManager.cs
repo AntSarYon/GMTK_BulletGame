@@ -77,6 +77,8 @@ public class NpcStateManager: MonoBehaviour
         currentShootingState = idleShoot;
 
         currentWalkingState.EnterState(this);
+        currentShootingState.EnterState(this);
+        Invoke(nameof(StartingStates), 3);
     }
 
     private void Update()
@@ -87,13 +89,13 @@ public class NpcStateManager: MonoBehaviour
             switch (currentPhase)
             {
                 case EnemyPhase.Phase1:
-                    interval = 15f;
+                    interval = 20f;
                     break;
                 case EnemyPhase.Phase2:
-                    interval = 13f;
+                    interval = 8f;
                     break;
                 case EnemyPhase.Phase3:
-                    interval = 10f;
+                    interval = 15f;
                     break;
             }
             timer += Time.deltaTime;
@@ -155,9 +157,9 @@ public class NpcStateManager: MonoBehaviour
                 SwitchWalkState(idleWalk);
                 SwitchShootState(lineShoot);
             }
-            currentWalkingState.UpdateState(this);
-            currentShootingState.UpdateState(this);
         }
+        currentWalkingState.UpdateState(this);
+        currentShootingState.UpdateState(this);
     }
 
     public void SwitchWalkState(NpcWalkState state)
@@ -352,5 +354,19 @@ public class NpcStateManager: MonoBehaviour
             // Retornar el estado correspondiente
             SwitchShootState(shootStates[randomIndex]);
         }
+    }
+
+    public void ChangePhase(EnemyPhase phase)
+    {
+        currentPhase = phase;
+        GetRandomWalkState(EnemyPhase.Phase3);
+        GetRandomShootState(EnemyPhase.Phase3);
+    }
+
+    private void StartingStates()
+    {
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        SwitchWalkState(walkingXState);
+        SwitchShootState(simpleShoot);
     }
 }
