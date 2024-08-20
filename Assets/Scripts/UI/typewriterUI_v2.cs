@@ -139,9 +139,14 @@ public class typewriterUI_v2 : MonoBehaviour
             yield return new WaitForSeconds(timeBtwChars);
         }
 
+        //Detenemos el sonido de Tipeo
+        GetComponentInParent<IntroController>().StopTypingSound();
+
         if (leadingChar != "")
         {
             text.text = text.text.Substring(0, text.text.Length - leadingChar.Length);
+            //Detenemos el sonido de Tipeo
+            GetComponentInParent<IntroController>().StopTypingSound();
         }
 
         yield return null;
@@ -164,9 +169,15 @@ public class typewriterUI_v2 : MonoBehaviour
             yield return new WaitForSeconds(timeBtwChars);
         }
 
+        //Detenemos el sonido de Tipeo
+        GetComponentInParent<IntroController>().StopTypingSound();
+
         if (leadingChar != "")
         {
             tmpProText.text = tmpProText.text.Substring(0, tmpProText.text.Length - leadingChar.Length);
+            
+            //Detenemos el sonido de Tipeo
+            GetComponentInParent<IntroController>().StopTypingSound();
         }
     }
 }
