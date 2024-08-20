@@ -51,11 +51,15 @@ public class Projectile : MonoBehaviour
         {
             //Calculamos el Valor de Blur con la Escala de Foco actual
             blurValue = (Mathf.Abs(ScalesManager.Instance.scale - principalScale) / 10)*2;
-            if (blurValue < 0.005f) blurValue = 0;
 
             //Hacemos que el Sprite se vea grande
             myScale = Mathf.Lerp(0.5f, 6.00f, (blurValue/0.2f));
-            if (myScale < 1.5f) myScale = 0.5f;
+            
+            if (myScale < 1f)
+            {
+                myScale = 0.5f;
+                blurValue = 0;
+            }
         }
         //Si la escala del ScalesManager es igual que la Principal asignada a este proyectil,
         else
@@ -98,14 +102,18 @@ public class Projectile : MonoBehaviour
     {
         //Calculamos el Valor de Blur con la Escala de Foco actual
         blurValue = (Mathf.Abs(newScale - principalScale) / 10) *2;
-        if (blurValue < 0.005f) blurValue = 0;
 
         //Actualizamos el valor del Blur
         mSpRender.material.SetFloat("_BlurAmount", blurValue);
 
         //Hacemos que el Sprite se vea grande
         myScale = Mathf.Lerp(0.5f, 6.00f, (blurValue / 0.2f));
-        if (myScale < 1.5f) myScale = 0.5f;
+        if (myScale < 1f)
+        {
+            myScale = 0.5f;
+            blurValue = 0;
+        }
+
 
         //Actualizamos la Escala del Proyectil constantemente 
         transform.localScale = new Vector3(myScale, myScale, myScale);
