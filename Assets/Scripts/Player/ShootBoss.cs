@@ -17,7 +17,7 @@ public class ShootBoss : MonoBehaviour
     {
 
         RaycastHit BossHit;
-        bool wasBossHit = Physics.Raycast(transform.position, transform.forward, out BossHit, 50, BossLayer);
+        bool wasBossHit = Physics.Raycast(transform.position, transform.forward, out BossHit, 80, BossLayer);
         
         if (wasBossHit)
         {
@@ -37,6 +37,6 @@ public class ShootBoss : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(transform.position, transform.forward * 50);
+        Gizmos.DrawRay(transform.position, transform.forward * 80);
     }
 }
