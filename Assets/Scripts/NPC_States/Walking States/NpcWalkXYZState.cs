@@ -21,7 +21,7 @@ public class NpcWalkXYZState : NpcWalkState
     public override void UpdateState(NpcStateManager npcStateManager)
     {
         // Mover el objeto hacia la posición objetivo en X, Y y Z
-        npcStateManager.transform.position = Vector3.MoveTowards(npcStateManager.transform.position, targetPosition, npcStateManager.movementSpeed * Time.deltaTime);
+        npcStateManager.transform.position = Vector3.MoveTowards(npcStateManager.transform.position, targetPosition, npcStateManager.speedDir * npcStateManager.movementSpeed * Time.deltaTime);
 
         // Si el objeto ha llegado al objetivo, seleccionar un nuevo objetivo
         if (npcStateManager.transform.position == targetPosition)

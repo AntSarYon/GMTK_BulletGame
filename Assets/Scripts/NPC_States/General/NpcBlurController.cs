@@ -116,7 +116,7 @@ public class NpcBlurController : MonoBehaviour
         myScale = Mathf.Lerp(1f, 4.00f, (blurValue / 0.2f));
 
         //hara el ataque
-        GetComponent<NpcStateManager>().OrbitAttack();
+       //  GetComponent<NpcStateManager>().OrbitAttack();
 
     }
 
@@ -150,7 +150,5 @@ public class NpcBlurController : MonoBehaviour
             //Devolvemos el Timer a 0
             BlurChangeTimer = 0;
         }
-
-        Debug.Log($"Enemigo con escala normal: {hasNormalScale}");
     }
 }

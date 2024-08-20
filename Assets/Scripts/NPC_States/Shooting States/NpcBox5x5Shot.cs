@@ -1,15 +1,15 @@
 using System;
 using UnityEngine;
 
-public class NpcBox9Shot : NpcShootState
+public class NpcBox5x5Shot : NpcShootState
 {
     float shootsDelay = 3f;
-    float launchForce = 15f;
+    float launchForce = 12f;
     ShootManager shootManager;
 
-    int rows = 3;
-    int columns = 3;
-    float offset = 4.5f; // Offset entre balas
+    int rows = 8;
+    int columns = 8;
+    float offset = 5f; // Offset entre balas
 
     public override void EnterState(NpcStateManager npcStateManager)
     {
@@ -29,6 +29,12 @@ public class NpcBox9Shot : NpcShootState
 
             //Retornamos el Timer a 0
             npcStateManager.shootManager.shootTimer = 0;
+
+            if (npcStateManager.currentPhase == EnemyPhase.Phase3)
+            {
+                npcStateManager.GetRandomWalkState(EnemyPhase.Phase3);
+                npcStateManager.GetRandomShootState(EnemyPhase.Phase3);
+            }
         }
     }
 
