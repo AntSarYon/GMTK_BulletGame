@@ -68,11 +68,14 @@ public class NPC_HealthManager : MonoBehaviour
         //Si el flag de recibiendo daño esta activo...
         if (IsReceivingDamage)
         {
+            //Hacemos la Barra más opaca (oscura)
+            EnemyHealthBarFill.color = new Color(1, 0.47f, 0.28f, 1);
+
             //Reducimos la salud gradualmente
             Health -= Time.deltaTime * healthDecreaseSpeed;
 
             //Actualizamos el Valor del Slider
-            mHealthSlider.value = Health;
+            mHealthSlider.value = 100 - Health;
 
             if (Health <= 0)
             {
@@ -87,7 +90,8 @@ public class NPC_HealthManager : MonoBehaviour
         //Si no estamos recibiendo daño
         else
         {
-
+            //Hacemos la Barra Clara de nuevo
+            EnemyHealthBarFill.color = new Color(1, 1, 1, 1);
         }
         
     }

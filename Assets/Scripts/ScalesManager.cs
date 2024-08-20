@@ -11,7 +11,10 @@ public class ScalesManager : MonoBehaviour
     public static ScalesManager Instance;
 
     //Escala inicial empieza en 1
-    public float scale = 1;
+    [HideInInspector] public float scale = 1;
+
+    //Referencia al camara HUD
+    [SerializeField] private CameraHUDController camHUD;
 
     //----------------------------------------------------
 
