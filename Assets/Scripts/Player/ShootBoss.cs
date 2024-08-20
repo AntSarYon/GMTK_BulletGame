@@ -17,11 +17,19 @@ public class ShootBoss : MonoBehaviour
     {
 
         RaycastHit BossHit;
-        bool wasBossHit = Physics.Raycast(transform.position, transform.forward, out BossHit, 80, BossLayer);
+        bool wasBossHit = Physics.Raycast(transform.position, transform.forward, out BossHit, 100, BossLayer);
         
         if (wasBossHit)
         {
-            Boss = BossHit.rigidbody.gameObject; 
+            if (Boss == null)
+            {
+                Boss = BossHit.rigidbody.gameObject;
+
+                if (Boss.GetComponent<NpcBlurController>().hasNormalScale)
+                {
+                    AudioManager.instance.Play("EnemigoEnfocado_oneshot");
+                }
+            }
             Boss.GetComponent<NPC_HealthManager>().StartRecievingDamage();
         }
         else
@@ -29,14 +37,17 @@ public class ShootBoss : MonoBehaviour
             if (Boss != null)
             {
                 Boss.GetComponent<NPC_HealthManager>().StopRecievingDamage();
+                Boss = null; //quitamos la referencia
             }
         }
+            
+        
     }
 
     //----------------------------------------------------------
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(transform.position, transform.forward * 80);
+        Gizmos.DrawRay(transform.position, transform.forward * 100);
     }
 }

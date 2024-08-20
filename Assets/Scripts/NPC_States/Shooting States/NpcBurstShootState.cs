@@ -18,6 +18,8 @@ public class NpcBurstShootState : NpcShootState
         shootTimer = 0f;
         isBursting = false;
         size = shootManager.SetSize();
+        
+        AudioManager.instance.Play("BurstLineaWavesCuadrado");
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)

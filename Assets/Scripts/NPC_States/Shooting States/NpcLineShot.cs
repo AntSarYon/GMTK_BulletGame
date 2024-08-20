@@ -24,6 +24,8 @@ public class NpcLineShot : NpcShootState
         //Si el Timer llega al limite
         if (shootManager.shootTimer >= shootsDelay)
         {
+            AudioManager.instance.Play("BurstLineaWavesCuadrado");
+
             //Disparamos de un Origen random
             ShootLine(npcStateManager);
             count++;

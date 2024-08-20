@@ -97,7 +97,7 @@ public class PlayerHealthController : MonoBehaviour
                 canBeHurt = false;
 
                 //Reproducimos el quejido
-                GetComponent<AudioSource>().Play();
+                AudioManager.instance.Play("golpe_al_jugador");
 
                 //Reducimos la Salud
                 ReduceHealth();

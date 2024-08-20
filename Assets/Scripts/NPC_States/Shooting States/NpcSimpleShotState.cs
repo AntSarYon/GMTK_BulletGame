@@ -16,6 +16,7 @@ public class NpcSimpleShotState : NpcShootState
         if (npcStateManager.currentPhase == EnemyPhase.Phase3)
             shootsDelay = 1.55f;
         shootManager = npcStateManager.shootManager;
+
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)
@@ -26,6 +27,8 @@ public class NpcSimpleShotState : NpcShootState
         // Si el Timer de disparo llega al limite
         if (shootManager.shootTimer >= shootsDelay)
         {
+            AudioManager.instance.Play("Singleshot");
+
             // Disparamos de un Origen random
             ShootFromRandomOrigin(npcStateManager);
             bulletsCount++;

@@ -56,7 +56,7 @@ public class IntroController : MonoBehaviour
     public void StartGame()
     {
         //Cargamos la escena de juego
-        SceneManager.LoadScene("Playground_Jaime");
+        SceneManager.LoadScene("Tutorial");
     }
 
     //-----------------------------------------------------------------------

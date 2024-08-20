@@ -14,6 +14,8 @@ public class NpcBox9Shot : NpcShootState
     public override void EnterState(NpcStateManager npcStateManager)
     {
         shootManager = npcStateManager.shootManager;
+
+        AudioManager.instance.Play("CuadradoMasivo");
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)

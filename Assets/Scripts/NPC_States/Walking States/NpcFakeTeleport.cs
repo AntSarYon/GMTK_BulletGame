@@ -11,6 +11,9 @@ public class NpcFakeTeleport : NpcWalkState
     {
         // Reinicia el temporizador al entrar en el estado
         timer = 0f;
+
+        //Reproducimos el sonido de Teleport
+        AudioManager.instance.Play("Teleport");
     }
 
     public override void UpdateState(NpcStateManager npcStateManager)
