@@ -2288,6 +2288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8414af67bb2794ab015b0805022f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcStateManager: {fileID: 795951238}
 --- !u!114 &795951232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2317,6 +2318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mHealthSlider: {fileID: 87926736}
+  IsReceivingDamage: 0
   Health: 100
   healthDecreaseSpeed: 4
   EnemyHealthBarFill: {fileID: 1505490173}
@@ -2468,8 +2470,8 @@ MonoBehaviour:
   localPos: {fileID: 902932942}
   rangeTeleportZ: 3
   currentPosition: 1
-  currentPhase: 2
-  _isDevMode: 1
+  currentPhase: 0
+  _isDevMode: 0
 --- !u!114 &795951239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3347,6 +3349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  invulnerabilityTime: 1
 --- !u!82 &1251299792
 AudioSource:
   m_ObjectHideFlags: 0
