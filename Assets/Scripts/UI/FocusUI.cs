@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class FocusUI : MonoBehaviour
 {
-
-    [SerializeField] private TextMeshProUGUI txtFocusValue;
     [SerializeField] private Scrollbar scrollBarFocus;
 
     private ScalesManager scaleManager;
@@ -24,9 +22,6 @@ public class FocusUI : MonoBehaviour
 
     void Update()
     {
-        //Actualizamos el texto
-        txtFocusValue.text = $"x{Mathf.Round(scaleManager.scale * 100f) / 100f}'";
-
         //Actualizamos la Barra
         scrollBarFocus.value = ((scaleManager.scale * 100) / 2) / 100;
     }

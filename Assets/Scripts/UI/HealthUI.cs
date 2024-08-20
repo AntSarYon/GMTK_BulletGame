@@ -1,55 +1,82 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
     [SerializeField] private PlayerHealthController playerHealth;
 
-    [SerializeField] private GameObject Hearth1;
-    [SerializeField] private GameObject Hearth2;
-    [SerializeField] private GameObject Hearth3;
+    private Image healthBateryImage;
 
-    [SerializeField] private GameObject txtPerdiste;
+    [SerializeField] private Sprite Health0;
+    [SerializeField] private Sprite Health1;
+    [SerializeField] private Sprite Health2;
+    [SerializeField] private Sprite Health3;
+    [SerializeField] private Sprite Health4;
+    [SerializeField] private Sprite Health5;
+
+    //---------------------------------------------------------------
+
+    void Awake()
+    {
+        //Obtenemos referencia a componente de Imagen
+        healthBateryImage = GetComponent<Image>();
+    }
+
+    //---------------------------------------------------------------
 
     void Start()
     {
-        Hearth1.SetActive(true);
-        Hearth2.SetActive(true);
-        Hearth3.SetActive(true);
+        //Asignamos Funcion Delegada
+        playerHealth.OnHealthChange += OnHealthChangeDelegate;
 
-        txtPerdiste.SetActive(false);
+        //Iniciamos con el Sprite de Salud en 5
+        healthBateryImage.sprite = Health5;
     }
 
-    // Update is called once per frame
-    void Update()
+    //---------------------------------------------------------------
+
+    private void OnHealthChangeDelegate(int newHealth)
     {
-        if (playerHealth.health == 3)
+        switch (playerHealth.health)
         {
-            Hearth1.SetActive(true);
-            Hearth2.SetActive(true);
-            Hearth3.SetActive(true);
-        }
-        else if (playerHealth.health == 2)
-        {
-            Hearth1.SetActive(true);
-            Hearth2.SetActive(true);
-            Hearth3.SetActive(false);
-        }
-        else if (playerHealth.health == 1)
-        {
-            Hearth1.SetActive(true);
-            Hearth2.SetActive(false);
-            Hearth3.SetActive(false);
-        }
-        else
-        {
-            Hearth1.SetActive(false);
-            Hearth2.SetActive(false);
-            Hearth3.SetActive(false);
+            case 5:
+                healthBateryImage.sprite = Health5;
+                break;
 
-            txtPerdiste.SetActive(true);
+            case 4:
+                healthBateryImage.sprite = Health4;
+                break;
+
+            case 3:
+                healthBateryImage.sprite = Health3;
+                break;
+
+            case 2:
+                healthBateryImage.sprite = Health2;
+                break;
+
+            case 1:
+                healthBateryImage.sprite = Health1;
+                break;
+            case 0:
+                healthBateryImage.sprite = Health0;
+                break;
+            default:
+                break;
         }
     }
+
+    //---------------------------------------------------------------
+
+    void OnDestroy()
+    {
+        //Quitamos la Funcion Delegada
+        playerHealth.OnHealthChange -= OnHealthChangeDelegate;
+    }
+
+    //---------------------------------------------------------------
 }

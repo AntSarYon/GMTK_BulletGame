@@ -19,6 +19,8 @@ public class NPC_HealthManager : MonoBehaviour
     [Header("Velocidad de Decremento de Salud")]
     [SerializeField] private float healthDecreaseSpeed;
 
+    [SerializeField] Image EnemyHealthBarFill;
+
     //--------------------------------------------------------------
 
     void Awake()
@@ -80,6 +82,12 @@ public class NPC_HealthManager : MonoBehaviour
             {
                 // Debug.Log($"Vida restante: {Health}");
             }
+        }
+
+        //Si no estamos recibiendo daño
+        else
+        {
+
         }
         
     }
