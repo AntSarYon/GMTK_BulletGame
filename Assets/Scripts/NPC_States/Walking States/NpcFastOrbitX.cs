@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class NpcFastOrbitX : NpcWalkState
 {
-    float minSpeed = 150f;
-    float maxSpeed = 200f;
+    float minSpeed = 100f;
+    float maxSpeed = 125f;
     float timer = 0f; // Temporizador
 
     public override void EnterState(NpcStateManager npcStateManager)

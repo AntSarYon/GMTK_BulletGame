@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class NpcFakeTeleport : NpcWalkState
 {
-    float speed = 2500f;
+    float speed = 750f;
     float timer = 0f;
-    float min = 0.1f;
+    float min = 0.15f;
     float max = 0.25f;
 
     public override void EnterState(NpcStateManager npcStateManager)

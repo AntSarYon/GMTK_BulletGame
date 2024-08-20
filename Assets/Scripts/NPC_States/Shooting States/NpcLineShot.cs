@@ -5,7 +5,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class NpcLineShot : NpcShootState
 {
     float shootsDelay = 1f;
-    float launchForce = 15f;
+    float launchForce = 12f;
     ShootManager shootManager;
 
     int columns = 12;

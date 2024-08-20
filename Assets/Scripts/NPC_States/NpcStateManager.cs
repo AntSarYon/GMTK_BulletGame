@@ -92,13 +92,13 @@ public class NpcStateManager: MonoBehaviour
             switch (currentPhase)
             {
                 case EnemyPhase.Phase1:
-                    interval = 20f;
+                    interval = 21f;
                     break;
                 case EnemyPhase.Phase2:
-                    interval = 8f;
+                    interval = 19f;
                     break;
                 case EnemyPhase.Phase3:
-                    interval = 15f;
+                    interval = 17f;
                     break;
             }
             timer += Time.deltaTime;
@@ -193,7 +193,7 @@ public class NpcStateManager: MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Draw a line in the scene view to visualize the distance range
+        // Draw a line in the scene view to visualize the distance rangeY
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z + minDistanceZ),
                         new Vector3(transform.position.x, transform.position.y, transform.position.z + maxDistanceZ));
@@ -347,6 +347,8 @@ public class NpcStateManager: MonoBehaviour
             NpcShootState[] shootStates = {
             simpleShoot,
             lineShoot,
+            lineShoot,
+            boxShootMax,
             boxShootMax,
             burstShoot,
         };
