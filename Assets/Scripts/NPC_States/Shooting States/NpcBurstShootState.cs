@@ -3,7 +3,7 @@ using UnityEngine;
 public class NpcBurstShootState : NpcShootState
 {
     float burstDelay = 2.5f; // Tiempo entre ráfagas
-    float shootInterval = 0.1f; // Tiempo entre balas en una ráfaga
+    float shootInterval = 0.08f; // Tiempo entre balas en una ráfaga
     int bulletsPerBurst = 5; // Número de balas por ráfaga
     float launchForce = 15f;
     ShootManager shootManager;
