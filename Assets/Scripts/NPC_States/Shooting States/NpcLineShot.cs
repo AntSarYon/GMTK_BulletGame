@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class NpcLineShot : NpcShootState
 {
-    float shootsDelay = 1f;
-    float launchForce = 12f;
+    float shootsDelay = 2f;
+    float launchForce = 10f;
     ShootManager shootManager;
 
     int columns = 12;

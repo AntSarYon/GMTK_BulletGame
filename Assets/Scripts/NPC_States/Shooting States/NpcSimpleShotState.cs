@@ -10,11 +10,11 @@ public class NpcSimpleShotState : NpcShootState
     public override void EnterState(NpcStateManager npcStateManager)
     {
         if (npcStateManager.currentPhase == EnemyPhase.Phase1)
-            shootsDelay = 2.35f;
+            shootsDelay = 2.25f;
         if (npcStateManager.currentPhase == EnemyPhase.Phase2)
-            shootsDelay = 2f;
+            shootsDelay = 1.85f;
         if (npcStateManager.currentPhase == EnemyPhase.Phase3)
-            shootsDelay = 1.55f;
+            shootsDelay = 1.45f;
         shootManager = npcStateManager.shootManager;
 
     }

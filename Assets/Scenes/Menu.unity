@@ -3355,7 +3355,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: EnemigoEnfocado_oneshot
     clip: {fileID: 8300000, guid: a004dc51c8aeda9419cc19788991a478, type: 3}
-    volume: 0.25
+    volume: 0.01
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -3374,6 +3374,13 @@ MonoBehaviour:
   - name: Teleport
     clip: {fileID: 8300000, guid: 1ce8f3f1e61c0d14c85259b0cb89d669, type: 3}
     volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  actualBGM:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
     pitch: 1
     loop: 0
     source: {fileID: 0}

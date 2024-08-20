@@ -92,13 +92,13 @@ public class NpcStateManager: MonoBehaviour
             switch (currentPhase)
             {
                 case EnemyPhase.Phase1:
-                    interval = 21f;
+                    interval = 20f;
                     break;
                 case EnemyPhase.Phase2:
-                    interval = 19f;
+                    interval = 17f;
                     break;
                 case EnemyPhase.Phase3:
-                    interval = 17f;
+                    interval = 14f;
                     break;
             }
             timer += Time.deltaTime;
