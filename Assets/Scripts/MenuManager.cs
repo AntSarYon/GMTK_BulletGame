@@ -48,14 +48,18 @@ public class MenuManager : MonoBehaviour
 
     public void Close()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+
         optionsMenu.SetActive(false);
         levelSelector.SetActive(false);
         credis.SetActive(false);
     }
 
-    public void ChangeScene(int n)
+    public void ChangeScene(string n)
     {
-        SceneManager.LoadScene(n);
+        SceneManager.LoadScene (n);
     }
 
     public void NextScene()

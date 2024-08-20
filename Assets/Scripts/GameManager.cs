@@ -10,6 +10,14 @@ public class GameManager : MonoBehaviour
 
     public bool paused;
 
+    public bool takeRecordTime;
+    public string currentRecordTime;
+    public float currentCinemaPercentage;
+
+    public float MouseSensivility = 10;
+
+    //----------------------------------------------------------------------------
+
     private void Awake()
     {
         if (_instance == null)
@@ -21,17 +29,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+
+        //Flag de tomar timepo record
+        takeRecordTime = true;
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    //----------------------------------------------------------------------------
 
     public void Quit()
     {

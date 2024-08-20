@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class CamCoderTimer : MonoBehaviour
 {
+    [Header("Referencia a HealthController")]
+    [SerializeField] private PlayerHealthController HealthController;
+
     [Header("Texto de Tiempo de Grabado")]
     [SerializeField] private TextMeshProUGUI txtRecordingTime;
 
@@ -23,10 +26,24 @@ public class CamCoderTimer : MonoBehaviour
 
     void Update()
     {
-        //Incrementamos el Tiempo de grabacion cada frame
-        filmTime += Time.deltaTime;
+        //Si el jugador sigue vivo...
+        if (HealthController.PlayerIsAlive)
+        {
+            //Incrementamos el Tiempo de grabacion cada frame
+            filmTime += Time.deltaTime;
 
-        txtRecordingTime.text = CalculateTimeInMiniutesSecondsFormat(filmTime);
+            //Asignamos el Tiempo que llevamos grabando -< Tmb al GameManager
+
+            txtRecordingTime.text = CalculateTimeInMiniutesSecondsFormat(filmTime);
+            
+            //Dependiendo del flag del GameManager, calculamos el tiempo
+            if (GameManager.Instance.takeRecordTime)
+            {
+                GameManager.Instance.currentRecordTime = txtRecordingTime.text;
+            }
+            
+        }
+        
     }
 
     //---------------------------------------------------------------------------

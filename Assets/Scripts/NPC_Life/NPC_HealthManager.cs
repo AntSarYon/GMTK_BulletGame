@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class NPC_HealthManager : MonoBehaviour
@@ -21,10 +22,18 @@ public class NPC_HealthManager : MonoBehaviour
 
     [SerializeField] Image EnemyHealthBarFill;
 
+    //Flag de Enemigo vivo
+    private bool EnemyAlive;
+
+    public event UnityAction OnBossDeath;
+
     //--------------------------------------------------------------
 
     void Awake()
     {
+        //Iniciamos con el Flag de Enemigo vivo activo
+        EnemyAlive = true;
+
         //Inicializamos Flags
         IsReceivingDamage = false;
 
@@ -65,34 +74,43 @@ public class NPC_HealthManager : MonoBehaviour
 
     void Update()
     {
-        //Si el flag de recibiendo daño esta activo...
-        if (IsReceivingDamage)
+        if (EnemyAlive)
         {
-            //Hacemos la Barra más opaca (oscura)
-            EnemyHealthBarFill.color = new Color(1, 0.47f, 0.28f, 1);
-
-            //Reducimos la salud gradualmente
-            Health -= Time.deltaTime * healthDecreaseSpeed;
-
-            //Actualizamos el Valor del Slider
-            mHealthSlider.value = 100 - Health;
-
-            if (Health <= 0)
+            //Si el flag de recibiendo daño esta activo...
+            if (IsReceivingDamage)
             {
-                Debug.Log("GANASTE");
+                //Hacemos la Barra más opaca (oscura)
+                EnemyHealthBarFill.color = new Color(1, 0.47f, 0.28f, 1);
+
+                //Reducimos la salud gradualmente
+                Health -= Time.deltaTime * healthDecreaseSpeed;
+
+                //Actualizamos el Valor del Slider -> Tmb en el GameManager
+                mHealthSlider.value = 100 - Health;
+                GameManager.Instance.currentCinemaPercentage = 100 - Health;
+
+                //Si la vida ha llegado a 0
+                if (Health <= 0)
+                {
+                    //Desactivamos el Flag
+                    EnemyAlive = false;
+
+                    //Desactivamos el Flag de GameManager para ya no tomar tiempo
+                    GameManager.Instance.takeRecordTime = false;
+
+                    //Disparamos el Evento de Boss muerto
+                    OnBossDeath?.Invoke();
+                }
             }
+
+            //Si no estamos recibiendo daño
             else
             {
-                // Debug.Log($"Vida restante: {Health}");
+                //Hacemos la Barra Clara de nuevo
+                EnemyHealthBarFill.color = new Color(1, 1, 1, 1);
             }
         }
-
-        //Si no estamos recibiendo daño
-        else
-        {
-            //Hacemos la Barra Clara de nuevo
-            EnemyHealthBarFill.color = new Color(1, 1, 1, 1);
-        }
+        
         
     }
 

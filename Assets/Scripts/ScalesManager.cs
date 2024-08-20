@@ -34,8 +34,8 @@ public class ScalesManager : MonoBehaviour
 
         //Dependiendo de si el scroll es positivo o negativo,
         //asignamos el valor de modificacion
-        if (scrollDir > 0) lenChange = 0.1f;
-        else if (scrollDir < 0) lenChange = -0.1f;
+        if (scrollDir > 0) lenChange = 0.2f;
+        else if (scrollDir < 0) lenChange = -0.2f;
 
         //Modificamos la escala del Lente, limitando su posible valor, de 0 a 2
         scale = Mathf.Clamp(scale + lenChange, 0, 2);

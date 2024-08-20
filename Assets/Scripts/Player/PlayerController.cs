@@ -89,6 +89,9 @@ public class SimplePlayerController : MonoBehaviour
 
     private void ControlarRotacion()
     {
+        //Asignamos la sensibilidad del Mouse segun el GameManager
+        turnSpeed = GameManager.Instance.MouseSensivility;
+
         //Actualizamos constantemente la rotaci�n horizontal del Player en torno al Eje Y
         transform.Rotate(
             Vector3.up,

@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class PlayerHealthController : MonoBehaviour
 {
+
+    public bool PlayerIsAlive;
+
     public int health = 5;
 
     public event UnityAction<int> OnHealthChange;
@@ -21,6 +24,9 @@ public class PlayerHealthController : MonoBehaviour
 
     void Awake()
     {
+        //Flag de player vivo iniciado en True
+        PlayerIsAlive = true;
+
         //Activamos Flag de "Puede ser dañado"
         canBeHurt = true;
 
@@ -44,6 +50,9 @@ public class PlayerHealthController : MonoBehaviour
         //Si la salud del personaje esta en 0
         if (health == 0)
         {
+            //Cambiamos Flag de "Jugador vivo" a falso
+            PlayerIsAlive = false;
+
             if (OnPlayerDead != null)
             {
                 //Disparamos evento de Muerte
