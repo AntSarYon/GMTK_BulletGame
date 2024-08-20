@@ -45,11 +45,17 @@ public class DeathPanelUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        AudioManager.instance.updateSfxVolume(0);
+        AudioManager.instance.updateBGValume(0);
+
     }
 
     public void Replay()
     {
         //Volvemos a cargar la escena del juego
         SceneManager.LoadScene("Playground_Jaime");
+
+        AudioManager.instance.updateSfxVolume(0.35f);
+        AudioManager.instance.updateBGValume(0.4f);
     }
 }

@@ -7,6 +7,8 @@ public class NPC_PhaseAnimController : MonoBehaviour
 
     //Referencia a HelathManager
     private NPC_HealthManager healthManager;
+    [SerializeField] private PhasesUIController phasesUIController;
+
     private Animator mAnimator;
     public NpcStateManager npcStateManager;
 
@@ -34,13 +36,21 @@ public class NPC_PhaseAnimController : MonoBehaviour
             {
                 mAnimator.Play("Phase3_Damage");
                 if (npcStateManager.currentPhase != EnemyPhase.Phase3)
+                {
+                    phasesUIController.GetComponent<Animator>().Play("Phase3");
                     npcStateManager.ChangePhase(EnemyPhase.Phase3);
+                }
+                    
             }
             else if (healthManager.Health < 70)
             {
                 mAnimator.Play("Phase2_Damage");
-                if(npcStateManager.currentPhase != EnemyPhase.Phase2)
+                if (npcStateManager.currentPhase != EnemyPhase.Phase2)
+                {
+                    phasesUIController.GetComponent<Animator>().Play("Phase2");
                     npcStateManager.ChangePhase(EnemyPhase.Phase2);
+                }
+                    
             }
             else
             {

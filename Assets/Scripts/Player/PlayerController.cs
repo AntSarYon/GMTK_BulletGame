@@ -20,12 +20,16 @@ public class SimplePlayerController : MonoBehaviour
     [Header("Velocidad de Rotaci�n")]
     [SerializeField] private float turnSpeed;
 
+    private bool canMoveCamara;
+
     //--------------------------------------------------------------------
 
     void Awake()
     {
         //Asignamos Instancia
         Instance = this;
+
+        canMoveCamara = false;
 
         //Obtenemos referencia al componente RigidBody
         mRb = GetComponent<Rigidbody>();
@@ -40,6 +44,9 @@ public class SimplePlayerController : MonoBehaviour
 
         //Bloqueamos el Cursor para que este no sea visible
         Cursor.lockState = CursorLockMode.Locked;
+
+        //Hacemos que podamos rotar la camara tras pasados 3.5 segundos segundos
+        Invoke(nameof(EnableCameraRotation), 3.5f);
     }
 
     //--------------------------------------------------------------------------------
@@ -92,16 +99,19 @@ public class SimplePlayerController : MonoBehaviour
         //Asignamos la sensibilidad del Mouse segun el GameManager
         turnSpeed = GameManager.Instance.MouseSensivility;
 
-        //Actualizamos constantemente la rotaci�n horizontal del Player en torno al Eje Y
-        transform.Rotate(
-            Vector3.up,
-            turnSpeed * Time.deltaTime * mDeltaLook.x
-        );
+        if (canMoveCamara)
+        {
+            //Actualizamos constantemente la rotaci�n horizontal del Player en torno al Eje Y
+            transform.Rotate(
+                Vector3.up,
+                turnSpeed * Time.deltaTime * mDeltaLook.x
+            );
 
-        ////Actualizamos constantemente la rotaci�n vertical del Player en torno al Eje X
-        cameraMain.GetComponent<CameraMovement>().RotateUpDown(
-            -turnSpeed * Time.deltaTime * mDeltaLook.y
-        );
+            ////Actualizamos constantemente la rotaci�n vertical del Player en torno al Eje X
+            cameraMain.GetComponent<CameraMovement>().RotateUpDown(
+                -turnSpeed * Time.deltaTime * mDeltaLook.y
+            );
+        }
     }
 
     //----------------------------------------------------------------------
@@ -124,6 +134,14 @@ public class SimplePlayerController : MonoBehaviour
             //Disparamos Evento de Cambiar Lente, pasando el valor de Scroll
             ScalesManager.Instance.LensScaleChanged(scrollInput);
         }
+    }
+
+    //----------------------------------------------------------------------
+
+    public void EnableCameraRotation()
+    {
+        //Activamos la rotacion de camara
+        canMoveCamara = true;
     }
 
     //----------------------------------------------------------------------

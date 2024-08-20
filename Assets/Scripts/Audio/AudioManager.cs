@@ -10,10 +10,10 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
-    public static float bgMusicVolume = .3f;
+    public static float bgMusicVolume = .4f;
     public static float effectsMusicVolume = .5f;
 
-    Sound actualBGM;
+    public Sound actualBGM;
 
     void Awake()
     {
@@ -103,7 +103,7 @@ public class AudioManager : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "Intro")
         {
             //Bajamos la musica la musica
-            updateBGValume(0.1f);
+            updateBGValume(0.25f);
         }
     }
 

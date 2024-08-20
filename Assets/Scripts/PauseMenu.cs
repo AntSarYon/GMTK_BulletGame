@@ -11,8 +11,6 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenu;
     public GameObject optionsMenu;
-    public GameObject victoryMenu;
-    public GameObject gameoverMenu;
 
     public GameObject audioManager;
     public GameObject BGMSlider;
@@ -46,10 +44,6 @@ public class PauseMenu : MonoBehaviour
             {
                 PauseGame();
             }
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            victoryMenu.SetActive(true);
         }
     }
 
@@ -110,13 +104,5 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void GameOver()
-    {
-        gameoverMenu.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;
-        canPause = false;
     }
 }

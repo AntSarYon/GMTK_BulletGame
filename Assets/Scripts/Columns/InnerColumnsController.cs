@@ -4,36 +4,22 @@ using UnityEngine;
 
 public class InnerColumnsController : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed = 1;
-    
-    //Flag de rotación
-    [SerializeField] private bool mustRotate;
+    float rotationSpeed = 60;
 
-    //------------------------------------------------------
+    Vector3 currentEulerAngles;
 
-    void Awake()
-    {
-        //Iniciamos con el flag desactivado
-        mustRotate = false;
-    }
+    float y;
 
-    //------------------------------------------------------
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     //------------------------------------------------------
 
     // Update is called once per frame
     void Update()
     {
-        //Si el flag de rotacionn esta activo...
-        if (mustRotate)
-        {
-            transform.Rotate(0, rotationSpeed*Time.deltaTime, 0, Space.Self);
-        }
+        y = -1;
+
+        currentEulerAngles += new Vector3(0, y, 0) * Time.deltaTime * rotationSpeed;
+
+        transform.localEulerAngles = currentEulerAngles;
     }
 }
