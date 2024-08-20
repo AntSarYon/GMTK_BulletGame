@@ -39,7 +39,6 @@ public class NpcSimpleShotState : NpcShootState
             // 50% de probabilidad de cambiar de estado
             if (Random.Range(0f, 1f) < 0.5f)
             {
-                Debug.Log("PAIN");
                 npcStateManager.SwitchWalkState(npcStateManager.idleWalk);
                 npcStateManager.SwitchShootState(npcStateManager.burstShoot);
             }
